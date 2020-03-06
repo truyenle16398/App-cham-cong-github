@@ -80,6 +80,7 @@ public class    ApiClient {
                 .registerTypeAdapter(Double.class, doubleAdapter)
                 .registerTypeAdapter(double.class, doubleAdapter)
                 .disableHtmlEscaping()
+                .setLenient()
                 .create();
         // init OkHttpClient
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient().newBuilder();

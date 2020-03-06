@@ -2,6 +2,7 @@ package com.example.myapplication.network;
 
 import com.example.myapplication.network.response.DiaryAttendanceResponse;
 import com.example.myapplication.network.response.InfoResponse;
+import com.example.myapplication.network.response.MessageResponse;
 import com.example.myapplication.ui.model.User;
 import com.example.myapplication.ui.model.info;
 import com.example.myapplication.ui.model.itemah;
@@ -29,6 +30,9 @@ public interface ApiService {
     @GET("diary-attendance")//ct/
     Observable<List<DiaryAttendanceResponse>> diaryattendance();//@Path("id") String id
 
+    @GET("logout")//ct/
+    Observable<MessageResponse> logout();//@Path("id") String id
+
 
     @PUT("update-info")
     @FormUrlEncoded
@@ -49,9 +53,4 @@ public interface ApiService {
     Call<String> updatepass(@Path("id") String id,
                             @Field("oldpass") String oldpass,
                             @Field("newpass") String newpass);
-
-    @POST("/cit/logout.php")
-    @FormUrlEncoded
-    Call<String> logout(@Field("id") String id,
-                        @Field("token") String token);
 }

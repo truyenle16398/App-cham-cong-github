@@ -89,7 +89,7 @@ public class InfoFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("nnn", "onError: " + e.getMessage());
+                        Log.d("nnn", "onError: show info" + e.getMessage());
                     }
 
                     @Override
@@ -216,7 +216,7 @@ public class InfoFragment extends Fragment {
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.d("nnn", "onError: "+ e.getMessage());
+                                Log.d("nnn", "onError: update info "+ e.getMessage());
                             }
                         });
             }

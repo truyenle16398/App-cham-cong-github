@@ -76,10 +76,10 @@ public class LoginActivity extends AppCompatActivity {
                         public void onResponse(Call<User> call, Response<User> response) {
                             Log.d("nnn", "onResponse: "+response.toString());
                             User us = response.body();
-                            SessionManager.getInstance().setKeySaveToken(response.body().getAccessToken());
                             if (us.getMessage() == null){
                                 info info = us.getUser();
                                 if (us != null && info.getId()!= null){
+                                    SessionManager.getInstance().setKeySaveToken(response.body().getAccessToken());
                                     String token = us.getAccessToken();
                                     String id = info.getId();
                                     String name = info.getName();
