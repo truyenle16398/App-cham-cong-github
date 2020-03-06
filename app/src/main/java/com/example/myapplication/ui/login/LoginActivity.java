@@ -93,10 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                                             .auth(SessionManager.getInstance().getKeySaveToken())
                                             .build();
                                     ApiClient.getInstance().init(config);
-
                                     finish();
-//                                intent.putExtra("emailne",info.getEmail());
-//                                dosave();
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không chính xác!!", Toast.LENGTH_SHORT).show();
                                 }

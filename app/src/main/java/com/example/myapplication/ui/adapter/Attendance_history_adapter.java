@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.network.response.DiaryAttendanceResponse;
 import com.example.myapplication.ui.model.itemah;
 
 import java.util.List;
@@ -17,9 +18,9 @@ import java.util.List;
 public class Attendance_history_adapter extends RecyclerView.Adapter<Attendance_history_adapter.Attendance_history_holder> {
 
     private Context context;
-    private List<itemah> items;
+    private List<DiaryAttendanceResponse> items;
 
-    public Attendance_history_adapter(Context context, List<itemah> items) {
+    public Attendance_history_adapter(Context context, List<DiaryAttendanceResponse> items) {
         this.context = context;
         this.items = items;
     }
@@ -34,7 +35,7 @@ public class Attendance_history_adapter extends RecyclerView.Adapter<Attendance_
 
     @Override
     public void onBindViewHolder(@NonNull Attendance_history_holder holder, int position) {
-        itemah item = items.get(position);
+        DiaryAttendanceResponse item = items.get(position);
         holder.tvdate.setText(item.getDate());
         holder.tvcheckin.setText(item.getTimein());
         holder.tvcheckout.setText(item.getTimeout());

@@ -1,5 +1,6 @@
 package com.example.myapplication.network;
 
+import com.example.myapplication.network.response.DiaryAttendanceResponse;
 import com.example.myapplication.network.response.InfoResponse;
 import com.example.myapplication.ui.model.User;
 import com.example.myapplication.ui.model.info;
@@ -24,8 +25,8 @@ public interface ApiService {
     @GET("show-info")//ct/
     Observable<InfoResponse> getinfo();//@Query("id") String id
     //lich su
-    @GET("/cit/at{id}.php")//ct/
-    Call<List<itemah>> getah(@Path("id") String id);//@Path("id") String id
+    @GET("diary-attendance")//ct/
+    Observable<List<DiaryAttendanceResponse>> diaryattendance();//@Path("id") String id
 
 
     @PUT("updateinfo/")

@@ -93,8 +93,7 @@ public class InfoFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        Toast.makeText(getActivity(), "neee", Toast.LENGTH_SHORT).show();
-
+//                        Toast.makeText(getActivity(), "neee", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

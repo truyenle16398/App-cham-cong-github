@@ -14,7 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.myapplication.network.ApiClient;
+import com.example.myapplication.network.response.DiaryAttendanceResponse;
 import com.example.myapplication.ui.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.adapter.Attendance_history_adapter;
@@ -25,6 +28,10 @@ import com.example.myapplication.retrofit.DataClient;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,30 +61,38 @@ public class AttendanceFragment extends Fragment {
         }
         runTimer();
         onclick();
-//        getdata();
+        getdata();
         return view;
     }
     private void getdata() {
-        Call<List<itemah>> callback = mgetdata.getah(MainActivity.idd);
-        callback.enqueue(new Callback<List<itemah>>() {
-            @Override
-            public void onResponse(Call<List<itemah>> call, Response<List<itemah>> response) {
-                Log.d("nnn", "onResponse att: "+ response.toString());
-                ArrayList<itemah> arrayList = (ArrayList<itemah>) response.body();
-                adapter = new Attendance_history_adapter(getActivity(),arrayList);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-                linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-                recyclerView.setLayoutManager(linearLayoutManager);
-                recyclerView.setAdapter(adapter);
-//                recyclerView.setAdapter(adapter));
-//                Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
-            }
+        ApiClient.getService().diaryattendance().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<DiaryAttendanceResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onFailure(Call<List<itemah>> call, Throwable t) {
-                Log.d("nnn", "onFailure: "+t.getMessage());
-            }
-        });
+                    }
+
+                    @Override
+                    public void onNext(List<DiaryAttendanceResponse> diaryAttendanceResponses) {
+                        ArrayList<DiaryAttendanceResponse> arrayList = (ArrayList<DiaryAttendanceResponse>) diaryAttendanceResponses;
+                        adapter = new Attendance_history_adapter(getActivity(),arrayList);
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("nnn", "onError: " +e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void onclick() {

@@ -32,6 +32,7 @@
                 android:background="@drawable/logo" />
 
             <EditText
+                android:text="demo@gmail.com"
                 android:id="@+id/edt_userlogin"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
@@ -52,6 +53,7 @@
                 android:textColor="#888888" />
 
             <EditText
+                android:text="123"
                 android:id="@+id/edt_passlogin"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
