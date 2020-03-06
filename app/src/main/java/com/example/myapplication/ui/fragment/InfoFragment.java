@@ -27,6 +27,7 @@ import com.example.myapplication.ui.model.info;
 import com.example.myapplication.retrofit.APIUtils;
 import com.example.myapplication.retrofit.DataClient;
 
+import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -77,8 +78,8 @@ public class InfoFragment extends Fragment {
 
                     @Override
                     public void onNext(InfoResponse getInfoUser) {
-                        Log.d("nnn", "ok pro: "+getInfoUser.getRole_id() );
-                        Toast.makeText(getActivity(), ""+ getInfoUser.getName(), Toast.LENGTH_SHORT).show();
+                        name = getInfoUser.getName();
+                        email = getInfoUser.getEmail();
                         edtname.setText(getInfoUser.getName());
                         edtemail.setText(getInfoUser.getEmail());
                         edtrole.setText(getInfoUser.getRole_id());
@@ -189,34 +190,6 @@ public class InfoFragment extends Fragment {
     private void updateinfo() {
         final String nameedt = edtname.getText().toString();
         final String emailedt = edtemail.getText().toString();
-//        ApiClient.getService().updateinfo(nameedt,emailedt)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<InfoResponse>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(InfoResponse infoResponse) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
-
-
-
-//        -------------------------------------
         Log.d("nnn", "onClick: "+email+"=="+emailedt +" và "+ name+"=="+nameedt);
         if (name.equals(nameedt) && email.equals(emailedt)){
 
@@ -227,25 +200,25 @@ public class InfoFragment extends Fragment {
                 Toast.makeText(getContext(), "Tên và Email là bắt buộc!", Toast.LENGTH_SHORT).show();
             }
             else {
-                Call<info> callback = mGetData.updateinfo(MainActivity.idd,nameedt,emailedt);
-                callback.enqueue(new Callback<info>() {
-                    @Override
-                    public void onResponse(Call<info> call, Response<info> response) {
-                        Log.d("nnn", "onResponse111: "+response);
-                        info manginfo =  response.body();
-                        if (manginfo!=null){
-                            name = manginfo.getName();
-                            email = manginfo.getEmail();
-                            Toast.makeText(getContext(), "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                ApiClient.getService().updateinfo(nameedt,emailedt)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                Log.d("nnn", "onSubscribe: "+ d.toString());
+                            }
 
-                    @Override
-                    public void onFailure(Call<info> call, Throwable t) {
-                        Log.d("nnn", "onFailure: "+t.getMessage());
-                        Toast.makeText(getContext(), "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                            @Override
+                            public void onComplete() {
+                                Toast.makeText(getActivity(), "Cập nhật thành công!!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.d("nnn", "onError: "+ e.getMessage());
+                            }
+                        });
             }
         }
 

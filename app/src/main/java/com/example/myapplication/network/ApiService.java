@@ -8,6 +8,7 @@ import com.example.myapplication.ui.model.itemah;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -29,10 +30,10 @@ public interface ApiService {
     Observable<List<DiaryAttendanceResponse>> diaryattendance();//@Path("id") String id
 
 
-    @PUT("updateinfo/")
+    @PUT("update-info")
     @FormUrlEncoded
-    Call<info> updateinfo(@Field("name") String name,
-                          @Field("email") String email);
+    Completable updateinfo(@Field("name") String name,
+                           @Field("email") String email);
 
     @Headers({"Accept: application/json"
             //  , "Content-Type : application/json"
