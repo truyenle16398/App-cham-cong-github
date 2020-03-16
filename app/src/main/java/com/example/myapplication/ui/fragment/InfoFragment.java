@@ -78,13 +78,11 @@ public class InfoFragment extends Fragment {
 
                     @Override
                     public void onNext(InfoResponse getInfoUser) {
+
                         name = getInfoUser.getName();
                         email = getInfoUser.getEmail();
-                        edtname.setText(getInfoUser.getName());
-                        edtemail.setText(getInfoUser.getEmail());
-                        edtrole.setText(getInfoUser.getRole_id());
-                        edtstatus.setText(getInfoUser.getStatus());
-
+                        role = getInfoUser.getRole_id();
+                        status = getInfoUser.getStatus();
                     }
 
                     @Override
@@ -95,6 +93,10 @@ public class InfoFragment extends Fragment {
                     @Override
                     public void onComplete() {
 //                        Toast.makeText(getActivity(), "neee", Toast.LENGTH_SHORT).show();
+                        edtname.setText(name);
+                        edtemail.setText(email);
+                        edtrole.setText(role);
+                        edtstatus.setText(status);
                     }
                 });
     }

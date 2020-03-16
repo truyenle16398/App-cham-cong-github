@@ -1,11 +1,10 @@
 package com.example.myapplication.network;
 
+import com.example.myapplication.network.response.CheckOutResponse;
 import com.example.myapplication.network.response.DiaryAttendanceResponse;
 import com.example.myapplication.network.response.InfoResponse;
 import com.example.myapplication.network.response.MessageResponse;
 import com.example.myapplication.ui.model.User;
-import com.example.myapplication.ui.model.info;
-import com.example.myapplication.ui.model.itemah;
 
 import java.util.List;
 
@@ -26,6 +25,14 @@ public interface ApiService {
 
     @GET("show-info")//ct/
     Observable<InfoResponse> getinfo();//@Query("id") String id
+
+    @POST("checkin")//ct/
+    Observable<Boolean> checkIn();//@Query("id") String id
+
+
+    @PUT("checkout")//ct/
+    Observable<CheckOutResponse> checkOut();//@Query("id") String id
+
     //lich su
     @GET("diary-attendance")//ct/
     Observable<List<DiaryAttendanceResponse>> diaryattendance();//@Path("id") String id

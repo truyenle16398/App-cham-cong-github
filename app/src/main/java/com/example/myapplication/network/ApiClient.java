@@ -21,8 +21,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-
 public class    ApiClient {
     private static final String TAG = ApiClient.class.getSimpleName();
     private static final long TIME_OUT = 300000;
@@ -30,7 +28,6 @@ public class    ApiClient {
     private static final String AUTHORIZATION_TYPE = "Bearer ";
     private static ApiClient sInstance;
     private ApiService mApiService;
-
     /**
      * constructor
      */
@@ -117,7 +114,7 @@ public class    ApiClient {
         });
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.2.24:8888/cham-cong/api/")
+                .baseUrl("http://192.168.1.27:80/cham-cong/api/")
                 .client(okHttpBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

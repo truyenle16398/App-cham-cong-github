@@ -12,6 +12,9 @@ public class SessionManager {
     private static final String KEY_SAVE_LANGUAGE = "key_save_language";
     private static final String KEY_SAVE_COLOR = "key_save_color";
     private static final String KEY_SAVE_TOKEN_USER_DEVICE = "key_save_token";
+
+    private static final Boolean KEY_SAVE_CHECK_IN_OUT = Boolean.valueOf("key_save_check_in_out");
+
     private static final String KEY_SAVE_CITY_NAME = "key_save_city_name";
     private static final String KEY_SAVE_CITY_NAME_LAT = "key_save_city_name_lat";
     private static final String KEY_SAVE_CITY_NAME_LONG = "key_save_city_name_long";
@@ -125,6 +128,17 @@ public class SessionManager {
     public void setKeySaveTokenDevice(String token) {
         sharedPref.edit().putString(KEY_SAVE_TOKEN_USER_DEVICE, token).apply();
     }
+    //checkin checkout
+
+
+    public static Boolean getKeySaveCheckInOut() {
+        return KEY_SAVE_CHECK_IN_OUT;
+    }
+
+    public void setKeySaveCheckInOut(Boolean isCheckIn) {
+        sharedPref.edit().putBoolean(String.valueOf(KEY_SAVE_CHECK_IN_OUT), isCheckIn).apply();
+    }
+
 
     /**
      * get key save mToken device

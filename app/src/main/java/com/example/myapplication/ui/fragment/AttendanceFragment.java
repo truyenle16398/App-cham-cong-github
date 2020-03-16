@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.network.ApiClient;
+import com.example.myapplication.network.response.CheckOutResponse;
 import com.example.myapplication.network.response.DiaryAttendanceResponse;
+import com.example.myapplication.network.response.InfoResponse;
 import com.example.myapplication.ui.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.adapter.Attendance_history_adapter;
@@ -36,19 +40,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+import static android.provider.FontsContract.Columns.WEIGHT;
+
 
 public class AttendanceFragment extends Fragment {
-
+    private final String SHARED_PREFERENCES_NAME ="savecheck";
     private DataClient mgetdata;
     RecyclerView recyclerView;
-    List<itemah> list;
     Attendance_history_adapter adapter;
+    private String id,reference,idno,date,employee,timein,timeout,totalhours,status_timein,status_timeout,reason,comment;
     private  int seconds = 0;
     private boolean running = false;
+    private boolean isCheckIn = false;
     private  boolean wasRunning;
     private Button btnCheckInCheckOut;
     private TextView time_view, txtEmployee, txtTimeTotal;
-    private boolean check = false;
     View view;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,8 +69,21 @@ public class AttendanceFragment extends Fragment {
         runTimer();
         onclick();
         getdata();
+        initLayout();
+        addData();
         return view;
     }
+
+    public void addData(){
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(String.valueOf(isCheckIn),this.isCheckIn);
+        editor.putBoolean(String.valueOf(running),this.running);
+        //editor.apply();
+        editor.commit();
+        Toast.makeText(getActivity(), "Save Check", Toast.LENGTH_SHORT).show();
+    }
+
     private void getdata() {
         ApiClient.getService().diaryattendance().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -94,19 +114,98 @@ public class AttendanceFragment extends Fragment {
                     }
                 });
     }
+    private void initLayout() {
+        checkInUser();
+        checkOutUser();
+    }
+    private void checkInUser(){
 
+        ApiClient.getService().checkIn()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        isCheckIn = aBoolean;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("nnn", "onError: show info" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        Toast.makeText(getActivity(), "neee", Toast.LENGTH_SHORT).show();
+
+                        if (isCheckIn){
+                            Toast.makeText(getActivity(), "Check In Successful", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getActivity(), "Check In Faile", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+    }
+    private void checkOutUser(){
+
+        ApiClient.getService().checkOut()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CheckOutResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(CheckOutResponse checkOutResponse) {
+                        id = checkOutResponse.getId();
+                        reference = checkOutResponse.getReference();
+                        idno = checkOutResponse.getIdno();
+                        date = checkOutResponse.getDate();
+                        employee = checkOutResponse.getEmployee();
+                        timein = checkOutResponse.getTimein();
+                        timeout = checkOutResponse.getTimeout();
+                        totalhours = checkOutResponse.getTotalhours();
+                        status_timein = checkOutResponse.getStatus_timein();
+                        status_timeout = checkOutResponse.getStatus_timeout();
+                        reason = checkOutResponse.getReason();
+                        comment = checkOutResponse.getComment();
+                        Log.d("v", "yyyyyyyyyyyyyyyyyyy  " +checkOutResponse.getTimeout());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("nnn", "onError: show info" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        Toast.makeText(getActivity(), "neee", Toast.LENGTH_SHORT).show();
+
+                        Log.d("onComplete", "xxxxxxxxxxxxxxxxxxxxxx  ");
+
+                    }
+                });
+    }
     private void onclick() {
         btnCheckInCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!check) {
-                    check = true;
+                if (!isCheckIn) {
+                    isCheckIn = true;
                     btnCheckInCheckOut.setText("CHECK OUT");
                     btnCheckInCheckOut.setBackgroundResource(R.drawable.btn_checkout);
                     running = true;
 //                    Toast.makeText(getActivity(), "Check In", Toast.LENGTH_SHORT).show();
                 } else {
-                    check = false;
+                    isCheckIn = false;
                     btnCheckInCheckOut.setText("CHECK IN");
                     running = false;
                     seconds = 0;
