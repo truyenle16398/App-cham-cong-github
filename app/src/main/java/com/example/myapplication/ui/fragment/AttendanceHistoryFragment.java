@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.fragment;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,7 +37,6 @@ import retrofit2.Response;
 public class AttendanceHistoryFragment extends Fragment {
 
     View view;
-    private DataClient mgetdata;
     RecyclerView recyclerView;
     List<itemah> list;
     Attendance_history_adapter adapter;
@@ -45,13 +45,16 @@ public class AttendanceHistoryFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_attendance_history, container, false);
 //        final TextView textView = view.findViewById(R.id.text_gallery);
         anhxa();
-        mgetdata = APIUtils.getdata();
         getdata();
 
         return view;
     }
 
     private void getdata() {
+
+        ProgressDialog dialog = new ProgressDialog(getActivity());
+        dialog.setMessage("please wait...");
+        dialog.show();
         ApiClient.getService().diaryattendance().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<DiaryAttendanceResponse>>() {
@@ -77,7 +80,7 @@ public class AttendanceHistoryFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-
+                        dialog.dismiss();
                     }
                 });
     }

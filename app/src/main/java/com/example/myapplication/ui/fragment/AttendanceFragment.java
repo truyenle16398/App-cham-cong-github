@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,15 +16,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DigitalClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.network.ApiClient;
 import com.example.myapplication.network.response.CheckOutResponse;
 import com.example.myapplication.network.response.DiaryAttendanceResponse;
-import com.example.myapplication.network.response.InfoResponse;
 import com.example.myapplication.ui.MainActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.ui.SessionManager;
 import com.example.myapplication.ui.adapter.Attendance_history_adapter;
 import com.example.myapplication.ui.model.itemah;
 import com.example.myapplication.retrofit.APIUtils;
@@ -36,12 +38,10 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.content.Context.MODE_PRIVATE;
-import static android.provider.FontsContract.Columns.WEIGHT;
 
 
 public class AttendanceFragment extends Fragment {

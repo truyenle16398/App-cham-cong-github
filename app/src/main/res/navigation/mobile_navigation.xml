@@ -17,6 +17,13 @@
         android:label="Điểm danh"
         tools:layout="@layout/fragment_attendance" />
 
+
+    <fragment
+        android:id="@+id/nav_createvacation"
+        android:name="com.example.myapplication.ui.fragment.CreateVacationFragment"
+        android:label="Xin nghỉ phép"
+        tools:layout="@layout/fragment_create_vacation" />
+
     <fragment
         android:id="@+id/nav_attendance_history"
         android:name="com.example.myapplication.ui.fragment.AttendanceHistoryFragment"
@@ -26,7 +33,7 @@
     <fragment
         android:id="@+id/nav_vacation"
         android:name="com.example.myapplication.ui.fragment.VacationFragment"
-        android:label="Xin nghỉ phép"
+        android:label="Lịch sử nghỉ phép"
         tools:layout="@layout/fragment_vacation" />
     <fragment
         android:id="@+id/nav_setting"

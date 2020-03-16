@@ -11,14 +11,15 @@ public class SessionManager {
     private static final String KEY_SAVE_FIRST_APP = "key_save_first_app";
     private static final String KEY_SAVE_LANGUAGE = "key_save_language";
     private static final String KEY_SAVE_COLOR = "key_save_color";
-    private static final String KEY_SAVE_TOKEN_USER_DEVICE = "key_save_token";
-
-    private static final Boolean KEY_SAVE_CHECK_IN_OUT = Boolean.valueOf("key_save_check_in_out");
-
     private static final String KEY_SAVE_CITY_NAME = "key_save_city_name";
     private static final String KEY_SAVE_CITY_NAME_LAT = "key_save_city_name_lat";
     private static final String KEY_SAVE_CITY_NAME_LONG = "key_save_city_name_long";
     private static final String KEY_SAVE_CITY = "key_save_city";
+    private static final String KEY_SAVE_TOKEN_USER_DEVICE = "key_save_token";
+
+    private static final String KEY_SAVE_NAME = "key_save_name";
+    private static final String KEY_SAVE_CHECK = "key_save_check";
+    private static final String KEY_LOGIN = "islogin";
 
 
     private static SessionManager sInstance;
@@ -40,8 +41,44 @@ public class SessionManager {
         sharedPref = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
+    //check login
+    public void setKeyLogin(boolean islogin) {
+        sharedPref.edit().putBoolean(KEY_LOGIN, islogin).apply();
+    }
+    public void getKeyLogin(boolean islogin) {
+        sharedPref.edit().putBoolean(KEY_LOGIN,islogin).apply();
+    }
+    public boolean Check(){
+        return sharedPref.getBoolean(KEY_LOGIN,false);
+    }
     /**
-     * Set key save token
+     * Set key save name
+     *
+     */
+    public void setKeySaveName(String name) {
+        sharedPref.edit().putString(KEY_SAVE_NAME, name).apply();
+    }
+
+    public String getKeySaveName(){
+        return sharedPref.getString(KEY_SAVE_NAME, "");
+    }
+    /**
+     * Set key save checkin/out
+     *
+     */
+    public void setKeySaveCheck(Boolean check) {
+        sharedPref.edit().putBoolean(KEY_SAVE_CHECK, check).apply();
+    }
+
+    public Boolean getKeySaveCheck(){
+        return sharedPref.getBoolean(KEY_SAVE_CHECK, false);
+    }
+
+
+
+    //-------------------------------------------------------------------------------------------
+    /**
+     * Set key save language
      *
      */
     public void setKeySaveLanguage(String language) {
@@ -128,17 +165,6 @@ public class SessionManager {
     public void setKeySaveTokenDevice(String token) {
         sharedPref.edit().putString(KEY_SAVE_TOKEN_USER_DEVICE, token).apply();
     }
-    //checkin checkout
-
-
-    public static Boolean getKeySaveCheckInOut() {
-        return KEY_SAVE_CHECK_IN_OUT;
-    }
-
-    public void setKeySaveCheckInOut(Boolean isCheckIn) {
-        sharedPref.edit().putBoolean(String.valueOf(KEY_SAVE_CHECK_IN_OUT), isCheckIn).apply();
-    }
-
 
     /**
      * get key save mToken device

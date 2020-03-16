@@ -12,7 +12,6 @@ public class sessionmanager {
     private int PRE_MODE = 1;
     private static final String NAME = "android_demo";
     private static final String KEY_LOGIN = "islogin";
-    private static final String KEY_CHECK = ("isCheck");
     private static String ID = "";
 
     @SuppressLint("WrongConstant")

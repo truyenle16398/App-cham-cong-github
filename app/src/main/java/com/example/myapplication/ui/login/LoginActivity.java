@@ -24,6 +24,10 @@ import com.example.myapplication.ui.model.sessionmanager;
 import com.example.myapplication.retrofit.APIUtils;
 import com.example.myapplication.retrofit.DataClient;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         onclick();
         CheckLogin();
     }
-
+//11111111111
     private void onclick() {
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,43 +74,50 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (pass.isEmpty()){
                     Toast.makeText(LoginActivity.this, "Vui lòng nhập mật khẩu!!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Call<User> callback = mgetdata.login(user,pass);
-                    callback.enqueue(new Callback<User>() {
-                        @Override
-                        public void onResponse(Call<User> call, Response<User> response) {
-                            Log.d("nnn", "onResponse: "+response.toString());
-                            User us = response.body();
-                            if (us.getMessage() == null){
-                                info info = us.getUser();
-                                if (us != null && info.getId()!= null){
-                                    SessionManager.getInstance().setKeySaveToken(response.body().getAccessToken());
-                                    String token = us.getAccessToken();
-                                    String id = info.getId();
-                                    String name = info.getName();
-                                    session.SetLogin(true,id,token,name);
-                                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    intent.putExtra("idne", id);
-                                    startActivity(intent);
+                    ApiClient.getService().loginnew(user,pass)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new SingleObserver<User>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
 
-                                    ApiConfig config = ApiConfig.builder().context(LoginActivity.this).baseUrl(SessionManager.getInstance().getKeySaveCityName())
-                                            .auth(SessionManager.getInstance().getKeySaveToken())
-                                            .build();
-                                    ApiClient.getInstance().init(config);
-                                    finish();
-                                } else {
-                                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không chính xác!!", Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                            Toast.makeText(LoginActivity.this, " "+ us.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<User> call, Throwable t) {
-                            Log.d("nnn", "onFailure: "+ t.getMessage());
+                                @Override
+                                public void onSuccess(User us) {
+                                    Log.d("nnn", "onSuccess: "+us.getMessage());
+                                    if (us.getMessage() == null){
+                                        info info = us.getUser();
+                                        if (us != null && info.getId()!= null){
+                                            SessionManager.getInstance().setKeySaveToken(us.getAccessToken());
+                                            SessionManager.getInstance().setKeySaveName(info.getName());
+                                            SessionManager.getInstance().setKeyLogin(true);
+//                                            String token = us.getAccessToken();
+//                                            String id = info.getId();
+//                                            String name = info.getName();
+//                                            session.SetLogin(true,id,token,name);
+                                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                                            intent.putExtra("idne", id);
+                                            startActivity(intent);
+
+                                            ApiConfig config = ApiConfig.builder().context(LoginActivity.this).baseUrl(SessionManager.getInstance().getKeySaveCityName())
+                                                    .auth(SessionManager.getInstance().getKeySaveToken())
+                                                    .build();
+                                            ApiClient.getInstance().init(config);
+                                            finish();
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không chính xác!!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, " Message: "+ us.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                @Override
+                                public void onError(Throwable e) {
+                                    Log.d("nnn", "onError: "+ e.getMessage());
                             Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                                }
+                            });
                 }
                 edtuser.onEditorAction(EditorInfo.IME_ACTION_DONE);
                 edtpass.onEditorAction(EditorInfo.IME_ACTION_DONE);
@@ -116,13 +127,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, ForgotPassActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
     }
     private void CheckLogin(){
-        if(!session.Check()){
+        if(!SessionManager.getInstance().Check()){//session.Check()
 //            Toast.makeText(this, "Vui lòng đăng nhập!!!!!!", Toast.LENGTH_SHORT).show();
         }else {
             Intent intent = new Intent(getApplication(),MainActivity.class);
@@ -130,15 +140,6 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
     }
-
-    private void dosave() {
-        sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        editor.putString("user",edtuser.getText().toString().trim());
-        editor.putString("pass",edtpass.getText().toString().trim());
-        editor.commit();
-    }
-
 
     private void Anhxa() {
         btnlogin = findViewById(R.id.btnLogin);
