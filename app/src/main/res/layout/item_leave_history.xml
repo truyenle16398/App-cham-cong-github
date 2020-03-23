@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:layout_weight="1"
-            android:text="1(Chi tiết)" />
+            android:text="@string/chitiet" />
         <TextView
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
@@ -33,6 +33,6 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:layout_weight="1"
-            android:text="Đang chờ duyệt" />
+            android:text="@string/dangchoduyet" />
     </LinearLayout>
 </LinearLayout>

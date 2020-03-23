@@ -23,7 +23,7 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="#FF9800"
-                    android:text="XIN NGHỈ PHÉP:"
+                    android:text="@string/xinnghiphep"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -38,7 +38,7 @@
                     android:textColor="#000000"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:text="Loại nghỉ phép :"
+                    android:text="@string/loainghiphep"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <Spinner
@@ -53,18 +53,18 @@
                     android:textColor="#000000"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:text="Lý do nghỉ phép: "
+                    android:text="@string/lydonghiphep"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
                 <EditText
-                    android:paddingLeft="10dp"
-                    android:hint="Nhập lý do xin nghỉ"
                     android:id="@+id/edt_vacation_reason"
-                    android:background="@drawable/vien_edittext"
-                    android:layout_marginTop="10dp"
-                    android:text="Cho em nghỉ đẻ a ư"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"/>
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/vien_edittext"
+                    android:hint="@string/input_lido"
+                    android:paddingLeft="10dp" />
                 <RadioGroup
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="50dp"
@@ -76,12 +76,12 @@
                         android:checked="true"
                         android:id="@+id/radio1"
                         android:layout_weight="1"
-                        android:text="Xin nghỉ 1 ngày"
+                        android:text="@string/xinnghi1ngay"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
                     <RadioButton
                         android:id="@+id/radion"
-                        android:text="Số ngày nghỉ khác"
+                        android:text="@string/songaynghikhac"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
@@ -96,12 +96,12 @@
                     <TextView
                         android:textColor="#000000"
                         android:layout_marginBottom="10dp"
-                        android:text="Từ ngày:"
+                        android:text="@string/tungay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <Button
                         android:id="@+id/btn_vacation_n_1"
-                        android:text="chọn"
+                        android:text="@string/chon"
                         android:layout_marginBottom="5dp"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"/>
@@ -109,15 +109,15 @@
                         android:textColor="#000000"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Đến ngày:"
+                        android:text="@string/denngay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
+
                     <Button
                         android:id="@+id/btn_vacation_n_2"
-                        android:text="chọn"
-                        android:layout_marginBottom="5dp"
                         android:layout_width="150dp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="10dp"
@@ -128,7 +128,7 @@
                     <TextView
                         android:textColor="#000000"
                         android:layout_marginBottom="10dp"
-                        android:text="Chọn ngày nghỉ:"
+                        android:text="@string/chonngaynghi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <Button
@@ -141,7 +141,7 @@
                 <TextView
                     android:textColor="#000000"
                     android:layout_marginBottom="10dp"
-                    android:text="Chọn ngày làm lại:"
+                    android:text="@string/chonngaylamlai"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <Button
@@ -160,7 +160,7 @@
                         android:layout_marginLeft="10dp"
                         android:textColor="#ffffff"
                         android:background="#FABE68"
-                        android:text="Tiếp tục"
+                        android:text="@string/tieptuc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <Button
@@ -168,7 +168,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/vien_edittext"
-                        android:text="Quay lại"
+                        android:text="@string/quaylai"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>

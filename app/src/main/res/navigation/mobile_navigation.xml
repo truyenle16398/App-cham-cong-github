@@ -8,36 +8,36 @@
     <fragment
         android:id="@+id/nav_info"
         android:name="com.example.myapplication.ui.fragment.InfoFragment"
-        android:label="Thông tin cá nhân"
+        android:label="@string/thongtincanhan"
         tools:layout="@layout/fragment_info" />
 
     <fragment
         android:id="@+id/nav_attendance"
         android:name="com.example.myapplication.ui.fragment.AttendanceFragment"
-        android:label="Điểm danh"
+        android:label="@string/diemdanh"
         tools:layout="@layout/fragment_attendance" />
 
 
     <fragment
         android:id="@+id/nav_createvacation"
         android:name="com.example.myapplication.ui.fragment.CreateVacationFragment"
-        android:label="Xin nghỉ phép"
+        android:label="@string/xinnghiphep"
         tools:layout="@layout/fragment_create_vacation" />
 
     <fragment
         android:id="@+id/nav_attendance_history"
         android:name="com.example.myapplication.ui.fragment.AttendanceHistoryFragment"
-        android:label="Nhật ký điểm danh"
+        android:label="@string/nhatkydiemdanh"
         tools:layout="@layout/fragment_attendance_history" />
 
     <fragment
         android:id="@+id/nav_vacation"
         android:name="com.example.myapplication.ui.fragment.VacationFragment"
-        android:label="Lịch sử nghỉ phép"
+        android:label="@string/lichsunghiphep"
         tools:layout="@layout/fragment_vacation" />
     <fragment
         android:id="@+id/nav_setting"
         android:name="com.example.myapplication.ui.fragment.SettingFragment"
-        android:label="Cài đặt"
+        android:label="@string/caidat"
         tools:layout="@layout/fragment_setting" />
 </navigation>

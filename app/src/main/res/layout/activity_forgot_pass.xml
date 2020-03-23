@@ -67,7 +67,6 @@
                 android:hint="@string/input_email"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
-                android:text="cjkhoa1@gmail.com"
                 android:textColor="#888888" />
 
             <EditText
@@ -103,7 +102,7 @@
                 android:drawableLeft="@drawable/pass_icon"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="*********"
+                android:hint="@string/input_pass"
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColor="#888888" />
