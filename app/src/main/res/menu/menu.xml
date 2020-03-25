@@ -4,6 +4,6 @@
     <item
         android:id="@+id/menu_thoat"
         android:icon="@drawable/ic_exit_to_app_black_24dp"
-        android:title="Thoát"
+        android:title="@string/thoat"
         app:showAsAction="ifRoom" />
 </menu>

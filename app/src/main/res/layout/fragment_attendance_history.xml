@@ -22,25 +22,25 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Day-Month" />
+                    android:text="@string/daymonth" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Check In" />
+                    android:text="@string/giovao" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Check Out" />
+                    android:text="@string/giora" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Totals" />
+                    android:text="@string/sogio" />
             </TableRow>
             <androidx.recyclerview.widget.RecyclerView
                 android:padding="5dp"
