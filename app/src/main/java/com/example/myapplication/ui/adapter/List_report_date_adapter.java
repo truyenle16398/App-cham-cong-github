@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.network.response.ListReportResponse;
+import com.example.myapplication.network.response.ListDateReportResponse;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ import lombok.NonNull;
 
 public class List_report_date_adapter extends RecyclerView.Adapter<List_report_date_adapter.List_report_date_holder>{
     private Context context;
-    private List<ListReportResponse> items;
+    private List<ListDateReportResponse> items;
 
-    public List_report_date_adapter(Context context, List<ListReportResponse> items) {
+    public List_report_date_adapter(Context context, List<ListDateReportResponse> items) {
         this.context = context;
         this.items = items;
     }
@@ -33,7 +34,8 @@ public class List_report_date_adapter extends RecyclerView.Adapter<List_report_d
 
     @Override
     public void onBindViewHolder(@NonNull List_report_date_holder holder, int position) {
-        ListReportResponse item = items.get(position);
+        ListDateReportResponse item = items.get(position);
+        holder.tv_date.setText(item.getDate());
         holder.tv_timein.setText(item.getTimein());
         holder.tv_timeout.setText(item.getTimeout());
         holder.tv_totalhours.setText(item.getTotalhours());
@@ -41,13 +43,14 @@ public class List_report_date_adapter extends RecyclerView.Adapter<List_report_d
 
     @Override
     public int getItemCount() {
-        return 0;
+        return items.size();
     }
 
     public class List_report_date_holder extends RecyclerView.ViewHolder {
-        TextView tv_timein, tv_timeout, tv_totalhours;
+        TextView tv_date ,tv_timein, tv_timeout, tv_totalhours;
         public List_report_date_holder(@NonNull View itemView) {
             super(itemView);
+            tv_date = itemView.findViewById(R.id.tv_date);
             tv_timein = itemView.findViewById(R.id.tv_timein);
             tv_timeout = itemView.findViewById(R.id.tv_timeout);
             tv_totalhours = itemView.findViewById(R.id.tv_totalhours);

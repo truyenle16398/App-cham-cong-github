@@ -3,6 +3,7 @@ package com.example.myapplication.network;
 import com.example.myapplication.network.response.CheckOutResponse;
 import com.example.myapplication.network.response.DiaryAttendanceResponse;
 import com.example.myapplication.network.response.InfoResponse;
+import com.example.myapplication.network.response.ListDateReportResponse;
 import com.example.myapplication.network.response.ListRegisterForLeaveResponse;
 import com.example.myapplication.network.response.ListReportResponse;
 import com.example.myapplication.network.response.MessageResponse;
@@ -39,9 +40,12 @@ public interface ApiService {
     @GET("list_register_for_leave")//ct/
     Observable<List<ListRegisterForLeaveResponse>> listRegisterForLeave();//@Path("id") String id
 
+    //bao cao dang danh sach
     @GET("report")//ct/
+    //bao cao dang lich
     Observable<List<ListReportResponse>> listReport();//@Path("id") String id
-
+    @GET("reports")//ct/
+    Observable<List<ListDateReportResponse>> listdateReport(@Query("date") String date);
 
 
     @GET("logout")//ct/
@@ -56,6 +60,7 @@ public interface ApiService {
 
     @GET("leavehistory")//ct/
     Observable<List<VacationResponse>> leavehistory();
+
     @GET("leavehistory/{id}")//ct/
     Observable<VacationResponse> detailleavehistory(@Path("id") String id);
 

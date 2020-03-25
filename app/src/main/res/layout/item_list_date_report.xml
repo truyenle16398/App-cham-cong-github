@@ -12,6 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="30dp">
         <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="2020-03-05" />
+        <TextView
             android:id="@+id/tv_timein"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
