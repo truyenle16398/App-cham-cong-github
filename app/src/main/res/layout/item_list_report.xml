@@ -24,31 +24,31 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Ngày" />
+            android:text="@string/ngay" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Nhân viên" />
+            android:text="@string/nhanvien" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Thời gian bắt đầu" />
+            android:text="@string/thoigianbatdau" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Thời gian kết thúc" />
+            android:text="@string/thoigianketthuc" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Tổng thời gian" />
+            android:text="@string/sogio" />
     </LinearLayout>
 
     <LinearLayout

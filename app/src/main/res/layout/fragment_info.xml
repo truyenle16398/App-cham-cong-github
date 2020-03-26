@@ -18,7 +18,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
                 android:textSize="25sp"
-                android:text="CẬP NHẬT THÔNG TIN "
+                android:text="@string/capnhatthongtin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <LinearLayout
@@ -31,7 +31,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textSize="20dp"
-                    android:text="HỌ VÀ TÊN"
+                    android:text="@string/hovaten"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <EditText
@@ -58,7 +58,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textSize="20dp"
-                    android:text="EMAIL"
+                    android:text="@string/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <EditText
@@ -85,7 +85,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textSize="20dp"
-                    android:text="VAI TRÒ"
+                    android:text="@string/chucvu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <EditText
@@ -113,7 +113,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textSize="20dp"
-                    android:text="TRẠNG THÁI"
+                    android:text="@string/trangthai"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <EditText
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_shadow"
-                android:text="CẬP NHẬT"
+                android:text="@string/capnhat"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"/>
             <Button
@@ -152,7 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_custom_changepass"
-                android:text="Đổi mật khẩu"
+                android:text="@string/doimatkhau"
                 android:textColor="#0C0C0C"
                 android:textSize="18sp"/>
         </LinearLayout>

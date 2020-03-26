@@ -6,39 +6,39 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_info"
-            android:title="Thông tin cá nhân" />
+            android:title="@string/capnhatthongtin" />
 <!--            android:icon="@drawable/ic_menu_camera"-->
         <item
             android:id="@+id/nav_attendance"
-            android:title="Điểm danh" />
+            android:title="@string/checkin" />
 <!--            android:icon="@drawable/ic_menu_gallery"-->
         <item
             android:id="@+id/nav_attendance_history"
-            android:title="Nhật ký điểm danh" />
+            android:title="@string/nhatkychamcong" />
         <item
             android:id="@+id/nav_list_register_for_leave"
-            android:title="Danh sách đăng kí nghỉ phép" />
+            android:title="@string/danhsachdangkynghiphep" />
 <!--            android:icon="@drawable/ic_menu_slideshow"-->
         <item
             android:id="@+id/nav_list_report"
-            android:title="Báo cáo chấm công theo tháng dạng danh sách" />
+            android:title="@string/baocaochamcongtheothangdangdanhsach" />
 <!--            android:icon="@drawable/ic_menu_slideshow"-->
         <item
             android:id="@+id/nav_list_report_date"
-            android:title="Báo cáo chấm công theo tháng dạng lịch" />
+            android:title="@string/baocaochamcongtheothangdanglich" />
 <!--            android:icon="@drawable/ic_menu_slideshow"-->
 
 
         <item
             android:id="@+id/nav_vacation"
-            android:title="Lịch sử nghỉ phép" />
+            android:title="@string/lichsunghiphep" />
 <!--            android:icon="@drawable/ic_menu_manage"-->
         <item
             android:id="@+id/nav_setting"
-            android:title="Cài đặt" />
+            android:title="@string/caidat" />
         <item
             android:id="@+id/nav_createvacation"
-            android:title="Xin nghỉ phép" />
+            android:title="@string/xinnghiphep" />
         <!--            android:icon="@drawable/ic_exit_to_app_black_24dp"-->
     </group>
 

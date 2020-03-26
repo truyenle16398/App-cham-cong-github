@@ -20,43 +20,43 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Nhân Viên" />
+            android:text="@string/nhanvien" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Thể Loại Nghỉ" />
+            android:text="@string/loainghiphep" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Leave From" />
+            android:text="@string/ngaynghi" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Leave to" />
+            android:text="@string/denngay" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Ngày trở lại" />
+            android:text="@string/ngaylamlai" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Trạng thái" />
+            android:text="@string/trangthai" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Bình Luận" />
+            android:text="@string/binhluan" />
     </LinearLayout>
 
     <LinearLayout

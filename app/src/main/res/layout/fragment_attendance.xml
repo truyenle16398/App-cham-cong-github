@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_drawable"
-            android:text="Check In"
+            android:text="@string/checkin"
             android:textStyle="bold"
             android:textSize="26sp"
             android:textColor="@android:color/white" />
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Nhat Ky Cham Cong"
+            android:text="@string/nhatkychamcong"
             android:textSize="24sp"
             android:textStyle="bold"/>
         <LinearLayout
@@ -83,25 +83,25 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Day-Month" />
+                    android:text="@string/daymonth" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Check In" />
+                    android:text="@string/giovao" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Check Out" />
+                    android:text="@string/giora" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Totals" />
+                    android:text="@string/sogio" />
             </TableRow>
             <androidx.recyclerview.widget.RecyclerView
                 android:padding="5dp"

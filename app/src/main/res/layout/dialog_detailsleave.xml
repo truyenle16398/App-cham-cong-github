@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="Họ và tên:"
+                    android:text="@string/hovaten"
                     android:textColor="@color/textne"
                     android:textSize="20dp" />
 
@@ -57,7 +57,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/textne"
                     android:textSize="20dp"
-                    android:text="Chức vụ:"
+                    android:text="@string/chucvu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -81,7 +81,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/textne"
                     android:textSize="20dp"
-                    android:text="Ngày nghỉ:"
+                    android:text="@string/ngaynghi"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -105,7 +105,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/textne"
                     android:textSize="20dp"
-                    android:text="Ngày làm lại:"
+                    android:text="@string/ngaylamlai"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -129,7 +129,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/textne"
                     android:textSize="20dp"
-                    android:text="Lý do:"
+                    android:text="@string/lydo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -162,7 +162,7 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="#FFFFFF"
                     android:textSize="20dp"
-                    android:text="oke"
+                    android:text="@string/ok"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
