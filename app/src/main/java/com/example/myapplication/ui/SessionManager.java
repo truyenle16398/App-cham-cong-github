@@ -20,6 +20,7 @@ public class SessionManager {
     private static final String KEY_SAVE_NAME = "key_save_name";
     private static final String KEY_SAVE_CHECK = "key_save_check";
     private static final String KEY_LOGIN = "islogin";
+    private static final String KEY_ROLE = "key_role";
 
 
     private static SessionManager sInstance;
@@ -39,6 +40,14 @@ public class SessionManager {
 
     public void init(Context context) {
         sharedPref = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+    }
+
+    //check chuc vu
+    public void setKeyRole(String role) {
+        sharedPref.edit().putString(KEY_ROLE, role).apply();
+    }
+    public String getKeyRole(){
+        return sharedPref.getString(KEY_ROLE, "");
     }
 
     //check login

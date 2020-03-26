@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_list_register_for_leave,
                 R.id.nav_list_report,
                 R.id.nav_list_report_date,
-                R.id.nav_setting,
+                R.id.nav_approval_sabbatical,
                 R.id.nav_vacation,
                 R.id.nav_createvacation)
                 .setDrawerLayout(drawer)

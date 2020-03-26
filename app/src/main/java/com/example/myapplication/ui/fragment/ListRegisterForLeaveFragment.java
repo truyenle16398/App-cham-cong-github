@@ -84,7 +84,7 @@ public class ListRegisterForLeaveFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-
+                        dialog.dismiss();
                     }
                 });
     }

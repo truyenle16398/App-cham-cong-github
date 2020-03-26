@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                                             SessionManager.getInstance().setKeySaveToken(us.getAccessToken());
                                             SessionManager.getInstance().setKeySaveName(info.getName());
                                             SessionManager.getInstance().setKeyLogin(true);
+                                            SessionManager.getInstance().setKeyRole(info.getRoleId());
 //                                            String token = us.getAccessToken();
 //                                            String id = info.getId();
 //                                            String name = info.getName();
