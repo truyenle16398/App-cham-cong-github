@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_attendance">
+
+    <fragment
+        android:id="@+id/nav_info"
+        android:name="com.example.myapplication.ui.fragment.InfoFragment"
+        android:label="Thông tin cá nhân"
+        tools:layout="@layout/fragment_info" />
+
+    <fragment
+        android:id="@+id/nav_attendance"
+        android:name="com.example.myapplication.ui.fragment.AttendanceFragment"
+        android:label="Điểm danh"
+        tools:layout="@layout/fragment_attendance" />
+
+
+    <fragment
+        android:id="@+id/nav_createvacation"
+        android:name="com.example.myapplication.ui.fragment.CreateVacationFragment"
+        android:label="Xin nghỉ phép"
+        tools:layout="@layout/fragment_create_vacation" />
+
+    <fragment
+        android:id="@+id/nav_attendance_history"
+        android:name="com.example.myapplication.ui.fragment.AttendanceHistoryFragment"
+        android:label="Nhật ký điểm danh"
+        tools:layout="@layout/fragment_attendance_history" />
+
+    <fragment
+        android:id="@+id/nav_list_register_for_leave"
+        android:name="com.example.myapplication.ui.fragment.ListRegisterForLeaveFragment"
+        android:label="Danh sách đăng kí nghỉ phép"
+        tools:layout="@layout/fragment_list_register_for_leave" />
+
+    <fragment
+        android:id="@+id/nav_list_report"
+        android:name="com.example.myapplication.ui.fragment.ListReportFragment"
+        android:label="Báo cáo chấm công theo tháng dạng danh sách"
+        tools:layout="@layout/fragment_list_report" />
+    <fragment
+        android:id="@+id/nav_list_report_date"
+        android:name="com.example.myapplication.ui.fragment.ListReportDateFragment"
+        android:label="Báo cáo chấm công theo tháng dạng lịch"
+        tools:layout="@layout/fragment_list_report_date" />
+
+    <fragment
+        android:id="@+id/nav_vacation"
+        android:name="com.example.myapplication.ui.fragment.VacationFragment"
+        android:label="Lịch sử nghỉ phép"
+        tools:layout="@layout/fragment_vacation" />
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="com.example.myapplication.ui.fragment.SettingFragment"
+        android:label="Cài đặt"
+        tools:layout="@layout/fragment_setting" />
+</navigation>
