@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -24,7 +26,10 @@ import com.example.myapplication.network.response.ListReportResponse;
 import com.example.myapplication.ui.adapter.List_report_adapter;
 import com.example.myapplication.ui.adapter.List_report_date_adapter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -36,6 +41,8 @@ import io.reactivex.schedulers.Schedulers;
  * A simple {@link Fragment} subclass.
  */
 public class ListReportDateFragment extends DialogFragment{
+
+    TextView textView;
     CalendarView  calendarView;
     View view;
     RecyclerView recyclerView;
@@ -82,14 +89,38 @@ public class ListReportDateFragment extends DialogFragment{
 
                     @Override
                     public void onNext(List<ListDateReportResponse> listDateReportResponses) {
+
                         ArrayList<ListDateReportResponse> arrayList = (ArrayList<ListDateReportResponse>) listDateReportResponses;
-                        adapter = new List_report_date_adapter(getActivity(),listDateReportResponses);
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-                        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-                        recyclerView.setLayoutManager(linearLayoutManager);
-                        recyclerView.setAdapter(adapter);
-
-
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
+                        try {
+                            Date current = sdf.parse(a);
+                            sdf.setLenient(false);
+                            Date today = new Date();
+                            String s = sdf.format(today);
+                            if (a.compareTo(s)>=0){
+//                                Toast.makeText(getActivity(), "Ngày này chưa tới!!", Toast.LENGTH_SHORT).show();
+                                textView.setText("Ngày này chưa tới!!");
+                                textView.setVisibility(View.VISIBLE);
+                                recyclerView.setVisibility(View.GONE);
+                            } else {
+                                if (arrayList.size()==0){
+//                                    Toast.makeText(getActivity(), "Ngày này bạn không làm!", Toast.LENGTH_SHORT).show();
+                                    textView.setText("Ngày này bạn không làm!!");
+                                    textView.setVisibility(View.VISIBLE);
+                                    recyclerView.setVisibility(View.GONE);
+                                } else {
+                                    textView.setVisibility(View.GONE);
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                    adapter = new List_report_date_adapter(getActivity(),listDateReportResponses);
+                                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                                    linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                                    recyclerView.setLayoutManager(linearLayoutManager);
+                                    recyclerView.setAdapter(adapter);
+                                }
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
@@ -105,6 +136,7 @@ public class ListReportDateFragment extends DialogFragment{
     }
 
     private void initView() {
+        textView = view.findViewById(R.id.tvthongbao);
         calendarView = view.findViewById(R.id.calendarView);
         recyclerView = view.findViewById(R.id.recyclerview_list_report_date);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
