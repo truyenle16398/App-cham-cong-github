@@ -10,12 +10,11 @@ import com.example.myapplication.network.response.MessageResponse;
 import com.example.myapplication.network.response.TypeResponse;
 import com.example.myapplication.network.response.VacationResponse;
 import com.example.myapplication.ui.model.User;
-import com.example.myapplication.ui.model.info;
-import com.example.myapplication.ui.model.itemah;
 
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -25,7 +24,6 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import io.reactivex.Observable;
 import retrofit2.http.Query;
 
 
@@ -57,6 +55,8 @@ public interface ApiService {
     @PUT("checkout")//ct/
     Observable<CheckOutResponse> checkOut();//@Query("id") String id
 
+    @GET("list_register_for_leave")//ct/
+    Observable<List<VacationResponse>> approvalsabbatical();
 
     @GET("leavehistory")//ct/
     Observable<List<VacationResponse>> leavehistory();
@@ -75,7 +75,7 @@ public interface ApiService {
     @PUT("update-pass")
     @FormUrlEncoded
     Observable<MessageResponse> updatepass(@Field("oldpass") String oldpass,
-                            @Field("newpass") String newpass);
+                                           @Field("newpass") String newpass);
     //dang nhap
     @FormUrlEncoded
     @POST("login")
@@ -85,12 +85,16 @@ public interface ApiService {
     @POST("createSacbbticalleave")
     @FormUrlEncoded
     Single<String> createsacbbticalleave(@Field("leavefrom") String leavefrom,
-                                     @Field("leaveto") String leaveto,
-                                     @Field("returndate") String returndate,
-                                     @Field("typeid") String typeid,
-                                     @Field("type") String type,
-                                     @Field("reason") String reason);
-
+                                         @Field("leaveto") String leaveto,
+                                         @Field("returndate") String returndate,
+                                         @Field("typeid") String typeid,
+                                         @Field("type") String type,
+                                         @Field("reason") String reason);
+    //doi mat khau
+    @PUT("approval-sabbatical/{id}")
+    Observable<MessageResponse> approvalsabbatical(@Path("id") String id,
+                                                   @Query("status") String status,
+                                                   @Query("comment") String comment);
 
     @Headers({"Accept: application/json"
             //  , "Content-Type : application/json"

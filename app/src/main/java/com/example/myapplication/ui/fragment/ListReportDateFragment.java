@@ -99,7 +99,7 @@ public class ListReportDateFragment extends DialogFragment{
 
                     @Override
                     public void onComplete() {
-
+                        dialog.dismiss();
                     }
                 });
     }

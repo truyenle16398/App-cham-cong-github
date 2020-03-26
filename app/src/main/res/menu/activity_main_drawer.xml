@@ -33,26 +33,25 @@
             android:id="@+id/nav_vacation"
             android:title="@string/lichsunghiphep" />
 <!--            android:icon="@drawable/ic_menu_manage"-->
-        <item
-            android:id="@+id/nav_setting"
-            android:title="@string/caidat" />
+<!--        <item-->
+<!--            android:id="@+id/nav_setting"-->
+<!--            android:title="@string/caidat" />-->
         <item
             android:id="@+id/nav_createvacation"
             android:title="@string/xinnghiphep" />
         <!--            android:icon="@drawable/ic_exit_to_app_black_24dp"-->
     </group>
 
-<!--    <item android:title="Communicate">-->
-<!--        <menu>-->
-<!--            <item-->
-<!--                android:id="@+id/nav_share"-->
-<!--                android:icon="@drawable/ic_menu_share"-->
-<!--                android:title="Điểm danh" />-->
-<!--            <item-->
-<!--                android:id="@+id/nav_send"-->
-<!--                android:icon="@drawable/ic_menu_send"-->
-<!--                android:title="Điểm danh" />-->
-<!--        </menu>-->
-<!--    </item>-->
+    <item android:title="Quản lý" android:id="@+id/admin">
+        <menu>
+            <item
+                android:id="@+id/nav_approval_sabbatical"
+                android:title="@string/kiemduyetnghiphep" />
+            <!--            <item-->
+            <!--                android:id="@+id/nav_send"-->
+            <!--                android:icon="@drawable/ic_menu_send"-->
+            <!--                android:title="Điểm danh" />-->
+        </menu>
+    </item>
 
 </menu>

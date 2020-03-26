@@ -83,7 +83,7 @@ public class ListReportFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-
+                        dialog.dismiss();
                     }
                 });
     }
