@@ -2,6 +2,7 @@ package com.example.myapplication.ui.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -49,7 +50,6 @@ public class AttendanceFragment extends Fragment {
     private String id,reference,idno,date,employee,timein,timeout,totalhours,status_timein,status_timeout,reason,comment;
     private  int seconds = 0;
     private boolean running = false;
-    private boolean isCheckIn = false;
     private  boolean wasRunning;
     private Button btnCheckInCheckOut;
     private TextView time_view, txtEmployee, txtTimeTotal;
@@ -66,19 +66,9 @@ public class AttendanceFragment extends Fragment {
         runTimer();
         onclick();
         getdata();
-        initLayout();
+//        initLayout();
         addData();
         return view;
-    }
-
-    public void addData(){
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(String.valueOf(isCheckIn),this.isCheckIn);
-        editor.putBoolean(String.valueOf(running),this.running);
-        //editor.apply();
-        editor.commit();
-        Toast.makeText(getActivity(), "Save Check", Toast.LENGTH_SHORT).show();
     }
 
     private void getdata() {
@@ -111,104 +101,114 @@ public class AttendanceFragment extends Fragment {
                     }
                 });
     }
-    private void initLayout() {
-        checkInUser();
-        checkOutUser();
-    }
     private void checkInUser(){
 
-        ApiClient.getService().checkIn()
+        ApiClient.getService().checkin()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Boolean>() {
+                .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Boolean aBoolean) {
-                        isCheckIn = aBoolean;
+                    public void onNext(String string) {
+                        if (string.equals("1")){
+//                            Toast.makeText(getActivity(), "Check In", Toast.LENGTH_SHORT).show();
+                            btnCheckInCheckOut.setText("CHECK OUT");
+                            SessionManager.getInstance().setKeySaveCheck(true);
+                            btnCheckInCheckOut.setBackgroundResource(R.drawable.btn_checkout);
+                        } else {
+                            Toast.makeText(getActivity(), "CheckIn thất bại!!", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("nnn", "onError: show info" + e.getMessage());
+                        Log.d("nnn", "onError: check in " + e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-//                        Toast.makeText(getActivity(), "neee", Toast.LENGTH_SHORT).show();
-
-                        if (isCheckIn){
-                            Toast.makeText(getActivity(), "Check In Successful", Toast.LENGTH_SHORT).show();
-                        }else {
-                            Toast.makeText(getActivity(), "Check In Faile", Toast.LENGTH_SHORT).show();
-                        }
 
                     }
                 });
     }
     private void checkOutUser(){
 
-        ApiClient.getService().checkOut()
+        ApiClient.getService().checkout()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CheckOutResponse>() {
+                .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(CheckOutResponse checkOutResponse) {
-                        id = checkOutResponse.getId();
-                        reference = checkOutResponse.getReference();
-                        idno = checkOutResponse.getIdno();
-                        date = checkOutResponse.getDate();
-                        employee = checkOutResponse.getEmployee();
-                        timein = checkOutResponse.getTimein();
-                        timeout = checkOutResponse.getTimeout();
-                        totalhours = checkOutResponse.getTotalhours();
-                        status_timein = checkOutResponse.getStatus_timein();
-                        status_timeout = checkOutResponse.getStatus_timeout();
-                        reason = checkOutResponse.getReason();
-                        comment = checkOutResponse.getComment();
-                        Log.d("v", "yyyyyyyyyyyyyyyyyyy  " +checkOutResponse.getTimeout());
+                    public void onNext(String string) {
+                        if (string.equals("1")){
+//                            Toast.makeText(getActivity(), "Check Out", Toast.LENGTH_SHORT).show();
+                            btnCheckInCheckOut.setText("CHECK IN");
+                            SessionManager.getInstance().setKeySaveCheck(false);
+                            btnCheckInCheckOut.setBackgroundResource(R.drawable.shape_drawable);
+                        } else {
+                            Toast.makeText(getActivity(), "CheckOut thất bại!!", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("nnn", "onError: show info" + e.getMessage());
+                        Log.d("nnn", "onError: checkOutUser " + e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-//                        Toast.makeText(getActivity(), "neee", Toast.LENGTH_SHORT).show();
-
-                        Log.d("onComplete", "xxxxxxxxxxxxxxxxxxxxxx  ");
 
                     }
                 });
     }
+
+
+    public void addData() {
+        if (SessionManager.getInstance().CheckKeyInOut()) {
+            btnCheckInCheckOut.setText("CHECK OUT");
+            btnCheckInCheckOut.setBackgroundResource(R.drawable.btn_checkout);
+        } else {
+//            isCheckIn = false;
+            btnCheckInCheckOut.setText("CHECK IN");
+            SessionManager.getInstance().setKeySaveCheck(false);
+            btnCheckInCheckOut.setBackgroundResource(R.drawable.shape_drawable);
+        }
+    }
+
     private void onclick() {
         btnCheckInCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isCheckIn) {
-                    isCheckIn = true;
-                    btnCheckInCheckOut.setText("CHECK OUT");
-                    btnCheckInCheckOut.setBackgroundResource(R.drawable.btn_checkout);
-                    running = true;
-//                    Toast.makeText(getActivity(), "Check In", Toast.LENGTH_SHORT).show();
+                if (SessionManager.getInstance().CheckKeyInOut()) {
+                    checkOutUser();
                 } else {
-                    isCheckIn = false;
-                    btnCheckInCheckOut.setText("CHECK IN");
-                    running = false;
-                    seconds = 0;
-                    btnCheckInCheckOut.setBackgroundResource(R.drawable.shape_drawable);
-//                    Toast.makeText(getActivity(), "Check Out", Toast.LENGTH_SHORT).show();
+                    checkInUser();
                 }
+
+
+//                if (!isCheckIn) {
+//                    isCheckIn = true;
+//                    btnCheckInCheckOut.setText("CHECK OUT");
+//                    btnCheckInCheckOut.setBackgroundResource(R.drawable.btn_checkout);
+//                    running = true;
+////                    Toast.makeText(getActivity(), "Check In", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    isCheckIn = false;
+//                    btnCheckInCheckOut.setText("CHECK IN");
+//                    SessionManager.getInstance().setKeySaveCheck(false);
+//                    running = false;
+//                    seconds = 0;
+//                    btnCheckInCheckOut.setBackgroundResource(R.drawable.shape_drawable);
+////                    Toast.makeText(getActivity(), "Check Out", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
     }

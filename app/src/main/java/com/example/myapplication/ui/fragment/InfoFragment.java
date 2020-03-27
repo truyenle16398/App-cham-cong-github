@@ -225,6 +225,8 @@ public class InfoFragment extends Fragment {
 
                             @Override
                             public void onComplete() {
+                                name = nameedt;
+                                email = emailedt;
                                 SessionManager.getInstance().setKeySaveName(nameedt);
                                 Toast.makeText(getActivity(), "Cập nhật thành công!!", Toast.LENGTH_SHORT).show();
                             }

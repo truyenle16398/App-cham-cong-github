@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void CheckLogin(){
-        if(!SessionManager.getInstance().Check()){//session.Check()
+        if(!SessionManager.getInstance().CheckKeyLogin()){//session.Check()
 //            Toast.makeText(this, "Vui lòng đăng nhập!!!!!!", Toast.LENGTH_SHORT).show();
         }else {
             Intent intent = new Intent(getApplication(),MainActivity.class);
