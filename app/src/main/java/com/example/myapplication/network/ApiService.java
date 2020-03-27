@@ -29,42 +29,44 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-    @GET("show-info")//ct/
-    Observable<InfoResponse> getinfo();//@Query("id") String id
+    @GET("show-info")
+    Observable<InfoResponse> getinfo();
     //lich su
     @GET("diary-attendance")//ct/
-    Observable<List<DiaryAttendanceResponse>> diaryattendance();//@Path("id") String id
+    Observable<List<DiaryAttendanceResponse>> diaryattendance();
     //Danh sách đăng kí nghỉ phép
     @GET("list_register_for_leave")//ct/
-    Observable<List<ListRegisterForLeaveResponse>> listRegisterForLeave();//@Path("id") String id
+    Observable<List<ListRegisterForLeaveResponse>> listRegisterForLeave();
 
     //bao cao dang danh sach
     @GET("report")//ct/
     //bao cao dang lich
-    Observable<List<ListReportResponse>> listReport();//@Path("id") String id
+    Observable<List<ListReportResponse>> listReport();
     @GET("reports")//ct/
     Observable<List<ListDateReportResponse>> listdateReport(@Query("date") String date);
 
 
     @GET("logout")//ct/
     Observable<MessageResponse> logout();
-    @POST("checkin")//ct/
-    Observable<Boolean> checkIn();//@Query("id") String id
+
+    // check in out
+    @POST("checkin")
+    Observable<String> checkin();
+
+    @PUT("checkout")
+    Observable<String> checkout();
 
 
-    @PUT("checkout")//ct/
-    Observable<CheckOutResponse> checkOut();//@Query("id") String id
-
-    @GET("list_register_for_leave")//ct/
+    @GET("list_register_for_leave")
     Observable<List<VacationResponse>> approvalsabbatical();
 
-    @GET("leavehistory")//ct/
+    @GET("leavehistory")
     Observable<List<VacationResponse>> leavehistory();
 
-    @GET("leavehistory/{id}")//ct/
+    @GET("leavehistory/{id}")
     Observable<VacationResponse> detailleavehistory(@Path("id") String id);
 
-    @GET("showtype")//ct/
+    @GET("showtype")
     Observable<List<TypeResponse>> showtype();
     // thong tin
     @PUT("update-info")

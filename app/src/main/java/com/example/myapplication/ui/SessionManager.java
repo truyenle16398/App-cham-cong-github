@@ -23,6 +23,7 @@ public class SessionManager {
     private static final String KEY_ROLE = "key_role";
 
 
+
     private static SessionManager sInstance;
 
     private SharedPreferences sharedPref;
@@ -54,12 +55,13 @@ public class SessionManager {
     public void setKeyLogin(boolean islogin) {
         sharedPref.edit().putBoolean(KEY_LOGIN, islogin).apply();
     }
-    public void getKeyLogin(boolean islogin) {
-        sharedPref.edit().putBoolean(KEY_LOGIN,islogin).apply();
-    }
-    public boolean Check(){
+//    public void getKeyLogin(boolean islogin) {
+//        sharedPref.edit().putBoolean(KEY_LOGIN,islogin).apply();
+//    }
+    public boolean CheckKeyLogin(){
         return sharedPref.getBoolean(KEY_LOGIN,false);
     }
+
     /**
      * Set key save name
      *
@@ -78,9 +80,11 @@ public class SessionManager {
     public void setKeySaveCheck(Boolean check) {
         sharedPref.edit().putBoolean(KEY_SAVE_CHECK, check).apply();
     }
-
     public Boolean getKeySaveCheck(){
         return sharedPref.getBoolean(KEY_SAVE_CHECK, false);
+    }
+    public boolean CheckKeyInOut(){
+        return sharedPref.getBoolean(KEY_SAVE_CHECK,false);
     }
 
 
