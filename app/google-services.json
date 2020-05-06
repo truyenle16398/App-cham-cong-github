@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "799782160510",
+    "firebase_url": "https://chamcong-88c87.firebaseio.com",
+    "project_id": "chamcong-88c87",
+    "storage_bucket": "chamcong-88c87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799782160510:android:e9bc67f0cf0c8dff76302f",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "799782160510-7i9t744fbtm2l4j4u3rrk7lr3tikc5eq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdwbMEUCUeqBRuDcJ0r33_YcnrYqON-mA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "799782160510-7i9t744fbtm2l4j4u3rrk7lr3tikc5eq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

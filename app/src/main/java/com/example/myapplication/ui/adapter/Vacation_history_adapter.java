@@ -58,6 +58,7 @@ public class Vacation_history_adapter extends RecyclerView.Adapter<Vacation_hist
         vholder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("nnn", "onClick: vacation "+items.get(vholder.getAdapterPosition()).getId() );
                 ApiClient.getService().detailleavehistory(items.get(vholder.getAdapterPosition()).getId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -94,7 +95,9 @@ public class Vacation_history_adapter extends RecyclerView.Adapter<Vacation_hist
                                 dialog_role.setText(vacationResponses.getRole_id());
                                 dialog_dayreturn.setText(vacationResponses.getReturndate());
                                 dialog_reason.setText(vacationResponses.getReason());
+//                                dialog_status.setText("aaaaaa "+vacationResponses.getStatus());
                                 if (Integer.parseInt(vacationResponses.getStatus())==0){
+                                linearLayout.setBackgroundColor(Color.parseColor("#f79307"));
                                     dialog_status.setText("Đơn xin nghỉ đang được chờ duyệt");
                                 } else {
                                     linearLayout.setBackgroundColor(Color.parseColor("#8FEC27"));
@@ -114,7 +117,7 @@ public class Vacation_history_adapter extends RecyclerView.Adapter<Vacation_hist
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.d("nnn", "onError: "+e.getMessage());
+                                Log.d("nnn", "onError: Vacation_history_adapter "+e.getMessage());
                             }
 
                             @Override
@@ -143,7 +146,7 @@ public class Vacation_history_adapter extends RecyclerView.Adapter<Vacation_hist
         LocalDate dateBefore = LocalDate.parse(response.getLeavefrom());
         LocalDate dateAfter = LocalDate.parse(response.getLeaveto());
         noOfDaysBetween = ChronoUnit.DAYS.between(dateBefore, dateAfter);
-        Log.d("nnn",  response.getStatus()+" = "+response.getLeaveto()+" - "+response.getLeavefrom()+"---------"+noOfDaysBetween);
+//        Log.d("nnn",  response.getStatus()+" = "+response.getLeaveto()+" - "+response.getLeavefrom()+"---------"+noOfDaysBetween);
         if (noOfDaysBetween ==0){
             holder.tvdayoff.setText("1(chi tiết)");
         } else {

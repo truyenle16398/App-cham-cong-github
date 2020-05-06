@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,6 +22,10 @@ import com.example.myapplication.ui.model.ApiConfig;
 import com.example.myapplication.ui.model.User;
 import com.example.myapplication.ui.model.info;
 import com.example.myapplication.ui.model.sessionmanager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -87,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                                             SessionManager.getInstance().setKeySaveName(info.getName());
                                             SessionManager.getInstance().setKeyLogin(true);
                                             SessionManager.getInstance().setKeyRole(info.getRoleId());
+                                            savetokenfirebase();
 //                                            String token = us.getAccessToken();
 //                                            String id = info.getId();
 //                                            String name = info.getName();
@@ -127,6 +133,41 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void savetokenfirebase() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        String tokenfirebase = task.getResult().getToken();
+                        ApiClient.getService().savetokenfirebase(tokenfirebase)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new SingleObserver<String>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
+
+                                    }
+
+                                    @Override
+                                    public void onSuccess(String s) {
+                                        if (s.equals("success")){
+
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, ""+s, Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        Log.d("nnn", "onError: tokenfirebase "+ e.getMessage());
+                                    }
+                                });
+                    }
+                });
+
+    }
+
     private void CheckLogin(){
         if(!SessionManager.getInstance().CheckKeyLogin()){//session.Check()
 //            Toast.makeText(this, "Vui lòng đăng nhập!!!!!!", Toast.LENGTH_SHORT).show();

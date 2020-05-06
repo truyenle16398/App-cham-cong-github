@@ -19,6 +19,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.network.ApiClient;
 import com.example.myapplication.network.response.MessageResponse;
 import com.example.myapplication.network.response.VacationResponse;
+import com.example.myapplication.ui.fragment.ApprovalSabbaticalFragment;
+import com.example.myapplication.ui.fragment.CreateVacationFragment;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -28,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -53,7 +56,8 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
         vholder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String referen = items.get(vholder.getAdapterPosition()).getReference();
+                Log.d("nnn", "onClick: getReference +" +referen);
                 ApiClient.getService().detailleavehistory(items.get(vholder.getAdapterPosition()).getId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -91,7 +95,10 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
                                 ok.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+                                        String referen = items.get(vholder.getAdapterPosition()).getReference();
+                                        Log.d("nnn", "onClick: getReference +" +referen);
                                         approvalsabbatical(items.get(vholder.getAdapterPosition()).getId(),"1",edtcmt.getText().toString());
+                                        sendnotification("1",referen);
 
                                     }
                                 });
@@ -99,6 +106,7 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
                                     @Override
                                     public void onClick(View v) {
                                         approvalsabbatical(items.get(vholder.getAdapterPosition()).getId(),"2",edtcmt.getText().toString());
+                                        sendnotification("0",referen);
                                     }
                                 });
                                 dialog.show();
@@ -121,6 +129,31 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
         });
         return vholder;
         //https://www.youtube.com/watch?v=Zd0TUuoPP-s
+    }
+
+    public static void sendnotification(String type,String referen) {
+        ApiClient.getService().notificationmanager(type,referen).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<MessageResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(MessageResponse messageResponse) {
+                        if (messageResponse.getSuccess().equals("1")){
+//                            Toast.makeText(getActivity(), "Gửi thông báo oke!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.d("nnn", " send notification create lỗi thêm ");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("nnn", "onError: send notification create "+ e.getMessage());
+                    }
+                });
     }
 
     private void approvalsabbatical(String id,String status,String comment) {

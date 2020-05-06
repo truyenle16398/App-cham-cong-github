@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.network.ApiClient;
+import com.example.myapplication.network.response.MessageResponse;
 import com.example.myapplication.network.response.VacationResponse;
 import com.example.myapplication.ui.MainActivity;
 import com.example.myapplication.ui.SessionManager;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -35,6 +37,7 @@ public class ApprovalSabbaticalFragment extends Fragment {
     View view;
     Approval_sabbatical_adapter adapter;
     RecyclerView recyclerView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
