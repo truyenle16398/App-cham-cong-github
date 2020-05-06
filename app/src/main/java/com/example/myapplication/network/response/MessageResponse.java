@@ -13,4 +13,13 @@ public class MessageResponse {
     @SerializedName("message")
     @Expose
     private String message;
+
+    @SerializedName("success")
+    @Expose
+    private String success;
+
+    @SerializedName("failure")
+    @Expose
+    private String failure;
+
 }

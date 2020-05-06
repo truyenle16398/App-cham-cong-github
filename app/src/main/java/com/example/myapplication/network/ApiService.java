@@ -34,18 +34,19 @@ public interface ApiService {
     //lich su
     @GET("diary-attendance")//ct/
     Observable<List<DiaryAttendanceResponse>> diaryattendance();
+
     //Danh sách đăng kí nghỉ phép
-    @GET("list_register_for_leave")//ct/
+    @GET("show-sabbatical")//show-sabbatical //  list_register_for_leave
     Observable<List<ListRegisterForLeaveResponse>> listRegisterForLeave();
 
     //bao cao dang danh sach
-    @GET("report")//ct/
-    //bao cao dang lich
+    @GET("report-list")//show-sabbatical //  report
     Observable<List<ListReportResponse>> listReport();
-    @GET("reports")//ct/
+    //bao cao dang lich
+    @GET("report-calendar")//show-sabbatical //  reports
     Observable<List<ListDateReportResponse>> listdateReport(@Query("date") String date);
 
-
+    //
     @GET("logout")//ct/
     Observable<MessageResponse> logout();
 
@@ -54,16 +55,17 @@ public interface ApiService {
     Observable<String> checkin();
 
     @PUT("checkout")
-    Observable<String> checkout();
+    Observable<CheckOutResponse> checkout();
 
 
-    @GET("list_register_for_leave")
+    @GET("show-sabbatical")///report-list // list_register_for_leave
     Observable<List<VacationResponse>> approvalsabbatical();
 
-    @GET("leavehistory")
+    //
+    @GET("show-history")
     Observable<List<VacationResponse>> leavehistory();
 
-    @GET("leavehistory/{id}")
+    @GET("sabbatical-details/{id}")
     Observable<VacationResponse> detailleavehistory(@Path("id") String id);
 
     @GET("showtype")
@@ -84,9 +86,9 @@ public interface ApiService {
     Single<User> loginnew(@Field("email") String email,
                           @Field("password") String password);
 
-    @POST("createSacbbticalleave")
+    @POST("create-sabbatical")
     @FormUrlEncoded
-    Single<String> createsacbbticalleave(@Field("leavefrom") String leavefrom,
+    Single<MessageResponse> createsacbbticalleave(@Field("leavefrom") String leavefrom,
                                          @Field("leaveto") String leaveto,
                                          @Field("returndate") String returndate,
                                          @Field("typeid") String typeid,
@@ -97,6 +99,22 @@ public interface ApiService {
     Observable<MessageResponse> approvalsabbatical(@Path("id") String id,
                                                    @Query("status") String status,
                                                    @Query("comment") String comment);
+
+
+    // luu token firebase vao csdl
+    @POST("save-notification")
+    Single<String> savetokenfirebase(@Query("token") String token);
+
+    // gui thong bao của th admin gui di
+    @POST("show-notificationmanager/{type}/{reference}")
+    Single<MessageResponse> notificationmanager(@Path("type") String type,
+                                                @Path("reference") String reference);
+
+    // gui thong bao của th xin nghỉ
+    @POST("show-notificationuser")
+    Single<MessageResponse> notificationuser();
+
+
 
     @Headers({"Accept: application/json"
             //  , "Content-Type : application/json"

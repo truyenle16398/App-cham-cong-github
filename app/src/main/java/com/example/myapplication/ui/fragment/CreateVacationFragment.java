@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.network.ApiClient;
+import com.example.myapplication.network.response.MessageResponse;
 import com.example.myapplication.network.response.TypeResponse;
 import com.example.myapplication.ui.MainActivity;
 
@@ -194,19 +195,46 @@ public class CreateVacationFragment extends Fragment {
         });
 
     }
+
+    public void sendnotification() {
+        ApiClient.getService().notificationuser().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<MessageResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(MessageResponse messageResponse) {
+                        if (messageResponse.getSuccess().equals("1")){
+//                            Toast.makeText(getActivity(), "Gửi thông báo oke!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.d("nnn", " send notification create lỗi thêm ");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("nnn", "onError: send notification create "+ e.getMessage());
+                    }
+                });
+    }
+
     private void RequestLeave(String leavefrom,String leaveto, String returndate,String typeid, String type,String reason) {
         ApiClient.getService().createsacbbticalleave(leavefrom,leaveto,returndate,typeid,type,reason).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<MessageResponse>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
             @Override
-            public void onSuccess(String s) {
-                if (s.equals("success")){
-                    Toast.makeText(getActivity(), "Chờ duyệt!", Toast.LENGTH_SHORT).show();
+            public void onSuccess(MessageResponse s) {
+                if (s.getMessage()!=null){
+                    Toast.makeText(getActivity(), s.getMessage(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
+                    sendnotification();
                 } else {
                     Toast.makeText(getActivity(), "Lỗi thêm", Toast.LENGTH_SHORT).show();
                 }

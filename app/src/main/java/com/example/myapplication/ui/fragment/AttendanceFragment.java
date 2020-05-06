@@ -52,7 +52,7 @@ public class AttendanceFragment extends Fragment {
     private boolean running = false;
     private  boolean wasRunning;
     private Button btnCheckInCheckOut;
-    private TextView time_view, txtEmployee, txtTimeTotal;
+    private TextView txtEmployee, txtTimeTotal;
     View view;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -140,16 +140,17 @@ public class AttendanceFragment extends Fragment {
         ApiClient.getService().checkout()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
+                .subscribe(new Observer<CheckOutResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(String string) {
-                        if (string.equals("1")){
-//                            Toast.makeText(getActivity(), "Check Out", Toast.LENGTH_SHORT).show();
+                    public void onNext(CheckOutResponse checkOutResponse) {
+                        if (checkOutResponse != null){
+
+                            Toast.makeText(getActivity(), "Bạn đã làm được: "+checkOutResponse.getTotalhours()+ " phút", Toast.LENGTH_SHORT).show();
                             btnCheckInCheckOut.setText("CHECK IN");
                             SessionManager.getInstance().setKeySaveCheck(false);
                             btnCheckInCheckOut.setBackgroundResource(R.drawable.shape_drawable);
@@ -215,7 +216,6 @@ public class AttendanceFragment extends Fragment {
 
     private void initWidget() {
         btnCheckInCheckOut = view.findViewById(R.id.btn_check);
-        time_view = view.findViewById(R.id.time_view);
         txtEmployee = view.findViewById(R.id.txtEmployee);
         txtTimeTotal = view.findViewById(R.id.txtTimeTotal);
         recyclerView = view.findViewById(R.id.recyclerview_at);
@@ -225,7 +225,6 @@ public class AttendanceFragment extends Fragment {
     }
 
     private void runTimer() {
-        final  TextView time_view = view.findViewById(R.id.time_view);
         final Handler handler = new Handler();
         handler.post(new Runnable(){
 
@@ -236,7 +235,6 @@ public class AttendanceFragment extends Fragment {
                 int sec = seconds % 60;
 
                 String time = String.format("%d:%02d:%02d", hour, minute, sec);
-                time_view.setText(time);
                 if (running){
                     seconds++;
                 }
