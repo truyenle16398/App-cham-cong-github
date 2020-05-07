@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +26,7 @@ import android.widget.Toast;
 import com.example.myapplication.network.ApiClient;
 import com.example.myapplication.network.response.CheckOutResponse;
 import com.example.myapplication.network.response.DiaryAttendanceResponse;
+import com.example.myapplication.network.response.MessageResponse;
 import com.example.myapplication.ui.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.SessionManager;
@@ -44,6 +47,7 @@ import retrofit2.Response;
 
 
 public class AttendanceFragment extends Fragment {
+    private ProgressDialog dialog;
     private final String SHARED_PREFERENCES_NAME ="savecheck";
     RecyclerView recyclerView;
     Attendance_history_adapter adapter;
@@ -57,18 +61,26 @@ public class AttendanceFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_attendance, container, false);
+
+//        if(savedInstanceState != null){
+//            seconds = savedInstanceState.getInt("seconds");
+//            running = savedInstanceState.getBoolean("running");
+//            wasRunning = savedInstanceState.getBoolean("wasRunning");
+//        }
         initWidget();
-        if(savedInstanceState != null){
-            seconds = savedInstanceState.getInt("seconds");
-            running = savedInstanceState.getBoolean("running");
-            wasRunning = savedInstanceState.getBoolean("wasRunning");
-        }
         runTimer();
         onclick();
-        getdata();
-//        initLayout();
-        addData();
+        dialogrunning();
         return view;
+    }
+
+    private void dialogrunning() {
+        dialog = new ProgressDialog(getActivity());
+        dialog.setMessage("please wait...");
+        dialog.show();
+        getdata();
+        check();
+        dialog.dismiss();
     }
 
     private void getdata() {
@@ -101,26 +113,28 @@ public class AttendanceFragment extends Fragment {
                     }
                 });
     }
+
     private void checkInUser(){
 
         ApiClient.getService().checkin()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
+                .subscribe(new Observer<MessageResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(String string) {
-                        if (string.equals("1")){
-//                            Toast.makeText(getActivity(), "Check In", Toast.LENGTH_SHORT).show();
+                    public void onNext(MessageResponse messageResponse) {
+                        if (messageResponse.getMessage().equals("1")){
                             btnCheckInCheckOut.setText("CHECK OUT");
-                            SessionManager.getInstance().setKeySaveCheck(true);
+//                            SessionManager.getInstance().setKeySaveCheck(true);
                             btnCheckInCheckOut.setBackgroundResource(R.drawable.btn_checkout);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            ft.detach(AttendanceFragment.this).attach(AttendanceFragment.this).commit();
                         } else {
-                            Toast.makeText(getActivity(), "CheckIn thất bại!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Hôm nay bạn đã Checkin!", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -149,13 +163,20 @@ public class AttendanceFragment extends Fragment {
                     @Override
                     public void onNext(CheckOutResponse checkOutResponse) {
                         if (checkOutResponse != null){
+                            String a = checkOutResponse.getTotalhours();
+                            String[] parts = a.split("\\.");
+                            String t = parts[0]; // 004
+                            String t1 = parts[1]; // 034556
 
-                            Toast.makeText(getActivity(), "Bạn đã làm được: "+checkOutResponse.getTotalhours()+ " phút", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Bạn đã làm được: "+t+" giờ "+t1+ " phút", Toast.LENGTH_SHORT).show();
+                            Log.d("nnn", "aaaaaa: "+ checkOutResponse.getTotalhours());
                             btnCheckInCheckOut.setText("CHECK IN");
                             SessionManager.getInstance().setKeySaveCheck(false);
                             btnCheckInCheckOut.setBackgroundResource(R.drawable.shape_drawable);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            ft.detach(AttendanceFragment.this).attach(AttendanceFragment.this).commit();
                         } else {
-                            Toast.makeText(getActivity(), "CheckOut thất bại!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), ""+checkOutResponse.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -170,28 +191,64 @@ public class AttendanceFragment extends Fragment {
                     }
                 });
     }
+    public void check() {
+//        if (SessionManager.getInstance().CheckKeyInOut()) {
+//            btnCheckInCheckOut.setText("CHECK OUT");
+//            btnCheckInCheckOut.setBackgroundResource(R.drawable.btn_checkout);
+//        } else {
+////            isCheckIn = false;
+//            btnCheckInCheckOut.setText("CHECK IN");
+//            SessionManager.getInstance().setKeySaveCheck(false);
+//            btnCheckInCheckOut.setBackgroundResource(R.drawable.shape_drawable);
+//        }
+        ApiClient.getService().check()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MessageResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
 
-    public void addData() {
-        if (SessionManager.getInstance().CheckKeyInOut()) {
-            btnCheckInCheckOut.setText("CHECK OUT");
-            btnCheckInCheckOut.setBackgroundResource(R.drawable.btn_checkout);
-        } else {
-//            isCheckIn = false;
-            btnCheckInCheckOut.setText("CHECK IN");
-            SessionManager.getInstance().setKeySaveCheck(false);
-            btnCheckInCheckOut.setBackgroundResource(R.drawable.shape_drawable);
-        }
+                    @Override
+                    public void onNext(MessageResponse messageResponse) {
+                        if (messageResponse.getMessage().equals("in"))
+                        {
+                            btnCheckInCheckOut.setVisibility(View.VISIBLE);
+                            btnCheckInCheckOut.setText("CHECK IN");
+                            btnCheckInCheckOut.setBackgroundResource(R.drawable.shape_drawable);
+                        } else if (messageResponse.getMessage().equals("out")){
+                            btnCheckInCheckOut.setVisibility(View.VISIBLE);
+                            btnCheckInCheckOut.setText("CHECK OUT");
+                            btnCheckInCheckOut.setBackgroundResource(R.drawable.btn_checkout);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("nnn", "onError: check check in out  "+ e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void onclick() {
         btnCheckInCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SessionManager.getInstance().CheckKeyInOut()) {
+                if (btnCheckInCheckOut.getText().toString().equals("CHECK IN")) {
+//                    Toast.makeText(getActivity(), "bấm check in mới đúng", Toast.LENGTH_SHORT).show();
+                    checkInUser();
+                    adapter.notifyDataSetChanged();
+                } else if (btnCheckInCheckOut.getText().toString().equals("CHECK OUT")){
+//                    Toast.makeText(getActivity(), "bấm check OUT kìa", Toast.LENGTH_SHORT).show();
                     checkOutUser();
                 } else {
-                    checkInUser();
+                    Toast.makeText(getActivity(), "Lỗi Khoa", Toast.LENGTH_SHORT).show();
                 }
 
 

@@ -51,4 +51,8 @@ public class VacationResponse {
     @SerializedName("role_id")
     @Expose
     private String role_id;
+
+    @SerializedName("employee")
+    @Expose
+    private String employee;
 }

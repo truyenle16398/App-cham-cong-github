@@ -91,8 +91,12 @@ public class Vacation_history_adapter extends RecyclerView.Adapter<Vacation_hist
                                 } else {
                                     dialog_dayoff.setText("("+noOfDaysBetween+" ngày) "+"từ ngày "+dateBefore+" tới ngày "+dateAfter);
                                 }
-                                dialog_name.setText(vacationResponses.getName());
-                                dialog_role.setText(vacationResponses.getRole_id());
+                                dialog_name.setText(vacationResponses.getEmployee());
+                                if (items.get(vholder.getAdapterPosition()).getId().equals("1")){
+                                    dialog_role.setText("Nhân viên");
+                                } else{
+                                    dialog_role.setText("Quản lý");
+                                }
                                 dialog_dayreturn.setText(vacationResponses.getReturndate());
                                 dialog_reason.setText(vacationResponses.getReason());
 //                                dialog_status.setText("aaaaaa "+vacationResponses.getStatus());

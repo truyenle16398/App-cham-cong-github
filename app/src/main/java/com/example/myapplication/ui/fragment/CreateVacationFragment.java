@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -191,6 +192,12 @@ public class CreateVacationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Hì Hì!!!", Toast.LENGTH_SHORT).show();
+//                androidx.fragment.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                ListRegisterForLeaveFragment bdf = new ListRegisterForLeaveFragment();
+//                ft.replace(R.id.nav_host_fragment, bdf);
+//                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                ft.addToBackStack(null);
+//                ft.commit();
             }
         });
 

@@ -47,12 +47,13 @@
             android:textSize="24sp"
             android:textStyle="bold" />
         <Button
+            android:visibility="invisible"
             android:id="@+id/btn_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_drawable"
-            android:text="@string/checkin"
+            android:text="Check In"
             android:textStyle="bold"
             android:textSize="26sp"
             android:textColor="@android:color/white" />
@@ -80,26 +81,30 @@
             <TableRow android:background="#FFAE38"
                 android:padding="10dp">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:text="@string/daymonth" />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:text="@string/giovao" />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:text="@string/giora" />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:text="@string/sogio" />
