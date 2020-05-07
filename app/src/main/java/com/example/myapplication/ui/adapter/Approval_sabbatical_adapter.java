@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -20,6 +21,7 @@ import com.example.myapplication.network.ApiClient;
 import com.example.myapplication.network.response.MessageResponse;
 import com.example.myapplication.network.response.VacationResponse;
 import com.example.myapplication.ui.fragment.ApprovalSabbaticalFragment;
+import com.example.myapplication.ui.fragment.AttendanceFragment;
 import com.example.myapplication.ui.fragment.CreateVacationFragment;
 
 import java.io.IOException;
@@ -69,6 +71,7 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
 
                             @Override
                             public void onNext(VacationResponse vacationResponses) {
+                                Log.d("nnn", "on check name : "+ vacationResponses.getRole_id());
                                 TextView dialog_name = dialog.findViewById(R.id.tv_detail_name);
                                 TextView dialog_role = dialog.findViewById(R.id.tv_detail_role);
                                 TextView dialog_dayoff = dialog.findViewById(R.id.tv_detail_dayoff);
@@ -88,8 +91,12 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
                                 } else {
                                     dialog_dayoff.setText("("+noOfDaysBetween+" ngày) "+"từ ngày "+dateBefore+" tới ngày "+dateAfter);
                                 }
-                                dialog_name.setText(vacationResponses.getName());
-                                dialog_role.setText(vacationResponses.getRole_id());
+                                dialog_name.setText(vacationResponses.getEmployee());
+                                if (items.get(vholder.getAdapterPosition()).getId().equals("1")){
+                                    dialog_role.setText("Nhân viên");
+                                } else{
+                                    dialog_role.setText("Quản lý");
+                                }
                                 dialog_dayreturn.setText(vacationResponses.getReturndate());
                                 dialog_reason.setText(vacationResponses.getReason());
                                 ok.setOnClickListener(new View.OnClickListener() {

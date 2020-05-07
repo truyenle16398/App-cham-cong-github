@@ -52,10 +52,13 @@ public interface ApiService {
 
     // check in out
     @POST("checkin")
-    Observable<String> checkin();
+    Observable<MessageResponse> checkin();
 
     @PUT("checkout")
     Observable<CheckOutResponse> checkout();
+
+    @GET("check")
+    Observable<MessageResponse> check();
 
 
     @GET("show-sabbatical")///report-list // list_register_for_leave

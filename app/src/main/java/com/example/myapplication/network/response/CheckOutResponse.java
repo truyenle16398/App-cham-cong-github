@@ -55,5 +55,7 @@ public class CheckOutResponse {
     @Expose
     private String comment;
 
-
+    @SerializedName("message")
+    @Expose
+    private String message;
 }

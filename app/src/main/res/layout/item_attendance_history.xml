@@ -13,28 +13,28 @@
         android:layout_height="30dp">
         <TextView
             android:id="@+id/tv_date_h"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="02/20" />
         <TextView
             android:id="@+id/tv_checkin_h"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight="1"
             android:text="08:00" />
         <TextView
             android:id="@+id/tv_checkout_h"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight="1"
             android:text="17:30" />
         <TextView
             android:id="@+id/tv_sumtime_h"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight="1"
