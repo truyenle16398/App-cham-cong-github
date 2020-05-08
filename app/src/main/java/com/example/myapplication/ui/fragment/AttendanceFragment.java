@@ -51,6 +51,7 @@ public class AttendanceFragment extends Fragment {
     private final String SHARED_PREFERENCES_NAME ="savecheck";
     RecyclerView recyclerView;
     Attendance_history_adapter adapter;
+    private ArrayList<DiaryAttendanceResponse> array_history;
     private String id,reference,idno,date,employee,timein,timeout,totalhours,status_timein,status_timeout,reason,comment;
     private  int seconds = 0;
     private boolean running = false;
@@ -129,10 +130,11 @@ public class AttendanceFragment extends Fragment {
                     public void onNext(MessageResponse messageResponse) {
                         if (messageResponse.getMessage().equals("1")){
                             btnCheckInCheckOut.setText("CHECK OUT");
-//                            SessionManager.getInstance().setKeySaveCheck(true);
                             btnCheckInCheckOut.setBackgroundResource(R.drawable.btn_checkout);
-                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                            ft.detach(AttendanceFragment.this).attach(AttendanceFragment.this).commit();
+                            getdata();
+                            adapter.notifyDataSetChanged();
+//                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                            ft.detach(AttendanceFragment.this).attach(AttendanceFragment.this).commit();
                         } else {
                             Toast.makeText(getActivity(), "Hôm nay bạn đã Checkin!", Toast.LENGTH_SHORT).show();
                         }
@@ -145,7 +147,6 @@ public class AttendanceFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-
                     }
                 });
     }
@@ -171,10 +172,11 @@ public class AttendanceFragment extends Fragment {
                             Toast.makeText(getActivity(), "Bạn đã làm được: "+t+" giờ "+t1+ " phút", Toast.LENGTH_SHORT).show();
                             Log.d("nnn", "aaaaaa: "+ checkOutResponse.getTotalhours());
                             btnCheckInCheckOut.setText("CHECK IN");
-                            SessionManager.getInstance().setKeySaveCheck(false);
                             btnCheckInCheckOut.setBackgroundResource(R.drawable.shape_drawable);
-                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                            ft.detach(AttendanceFragment.this).attach(AttendanceFragment.this).commit();
+                            getdata();
+                            adapter.notifyDataSetChanged();
+//                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                            ft.detach(AttendanceFragment.this).attach(AttendanceFragment.this).commit();
                         } else {
                             Toast.makeText(getActivity(), ""+checkOutResponse.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -187,7 +189,6 @@ public class AttendanceFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-
                     }
                 });
     }
@@ -241,11 +242,10 @@ public class AttendanceFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (btnCheckInCheckOut.getText().toString().equals("CHECK IN")) {
-//                    Toast.makeText(getActivity(), "bấm check in mới đúng", Toast.LENGTH_SHORT).show();
+                    getdata();
                     checkInUser();
-                    adapter.notifyDataSetChanged();
                 } else if (btnCheckInCheckOut.getText().toString().equals("CHECK OUT")){
-//                    Toast.makeText(getActivity(), "bấm check OUT kìa", Toast.LENGTH_SHORT).show();
+                    getdata();
                     checkOutUser();
                 } else {
                     Toast.makeText(getActivity(), "Lỗi Khoa", Toast.LENGTH_SHORT).show();

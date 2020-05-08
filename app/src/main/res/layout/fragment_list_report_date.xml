@@ -44,26 +44,26 @@
                 <TableRow android:background="#FFAE38"
                     android:padding="10dp">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_weight="1"
                         android:text="@string/ngay" />
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_weight="1"
                         android:text="@string/thoigianbatdau" />
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_weight="1"
                         android:text="@string/thoigianketthuc" />
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_weight="1"
                         android:text="@string/sogio" />
