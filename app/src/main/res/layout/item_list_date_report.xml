@@ -5,36 +5,35 @@
     android:layout_height="wrap_content"
     android:background="#F0F7F7">
     <LinearLayout
-        android:layout_marginLeft="-5dp"
         android:layout_gravity="center"
         android:padding="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="30dp">
+        android:layout_height="match_parent">
         <TextView
             android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="2020-03-05" />
         <TextView
             android:id="@+id/tv_timein"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="16:24:09" />
         <TextView
             android:id="@+id/tv_timeout"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight="1"
             android:text="16:25:14" />
         <TextView
             android:id="@+id/tv_totalhours"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight="1"

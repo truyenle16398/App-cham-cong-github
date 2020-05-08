@@ -2,6 +2,7 @@ package com.example.myapplication.ui.fragment;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,8 +36,8 @@ import io.reactivex.schedulers.Schedulers;
 public class ApprovalSabbaticalFragment extends Fragment {
 
     View view;
-    Approval_sabbatical_adapter adapter;
-    RecyclerView recyclerView;
+    public static Approval_sabbatical_adapter adapter;
+    public static RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +54,7 @@ public class ApprovalSabbaticalFragment extends Fragment {
         }
         return view;
     }
-    private void getdata() {
+    public void getdata() {
         ProgressDialog dialog = new ProgressDialog(getActivity());
         dialog.setMessage("please wait...");
         dialog.show();
@@ -74,6 +75,7 @@ public class ApprovalSabbaticalFragment extends Fragment {
                         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                         recyclerView.setLayoutManager(linearLayoutManager);
                         recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                         dialog.dismiss();
                     }
 

@@ -92,7 +92,7 @@ public class Vacation_history_adapter extends RecyclerView.Adapter<Vacation_hist
                                     dialog_dayoff.setText("("+noOfDaysBetween+" ngày) "+"từ ngày "+dateBefore+" tới ngày "+dateAfter);
                                 }
                                 dialog_name.setText(vacationResponses.getEmployee());
-                                if (items.get(vholder.getAdapterPosition()).getId().equals("1")){
+                                if (items.get(vholder.getAdapterPosition()).getRole_id().equals("1")){
                                     dialog_role.setText("Nhân viên");
                                 } else{
                                     dialog_role.setText("Quản lý");

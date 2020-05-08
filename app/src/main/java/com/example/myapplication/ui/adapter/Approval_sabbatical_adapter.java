@@ -41,6 +41,7 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
     private Context context;
     private List<VacationResponse> items;
     Dialog dialog;
+    private int po;
 
     public Approval_sabbatical_adapter(Context context, List<VacationResponse> items) {
         this.context = context;
@@ -59,7 +60,8 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
             @Override
             public void onClick(View v) {
                 String referen = items.get(vholder.getAdapterPosition()).getReference();
-                Log.d("nnn", "onClick: getReference +" +referen);
+                po = vholder.getAdapterPosition();
+                Log.d("nnn", "onClick: getReference +" +po);
                 ApiClient.getService().detailleavehistory(items.get(vholder.getAdapterPosition()).getId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -92,7 +94,7 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
                                     dialog_dayoff.setText("("+noOfDaysBetween+" ngày) "+"từ ngày "+dateBefore+" tới ngày "+dateAfter);
                                 }
                                 dialog_name.setText(vacationResponses.getEmployee());
-                                if (items.get(vholder.getAdapterPosition()).getId().equals("1")){
+                                if (items.get(vholder.getAdapterPosition()).getRole_id().equals("1")){
                                     dialog_role.setText("Nhân viên");
                                 } else{
                                     dialog_role.setText("Quản lý");
@@ -106,7 +108,6 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
                                         Log.d("nnn", "onClick: getReference +" +referen);
                                         approvalsabbatical(items.get(vholder.getAdapterPosition()).getId(),"1",edtcmt.getText().toString());
                                         sendnotification("1",referen);
-
                                     }
                                 });
                                 back.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +187,7 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
 
                     @Override
                     public void onComplete() {
+                        removeitem(po);
                         dialog.dismiss();
                     }
                 });
@@ -228,8 +230,8 @@ public class Approval_sabbatical_adapter extends RecyclerView.Adapter<Approval_s
             tvstatus = itemView.findViewById(R.id.tv_status_vacation);
         }
     }
-    public static long betweenDates(Date firstDate, Date secondDate) throws IOException
-    {
-        return ChronoUnit.DAYS.between(firstDate.toInstant(), secondDate.toInstant());
+    public void removeitem(int position){
+        items.remove(position);
+        notifyDataSetChanged();
     }
 }

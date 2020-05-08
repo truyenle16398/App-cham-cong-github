@@ -89,7 +89,7 @@ public class ListReportDateFragment extends DialogFragment{
 
                     @Override
                     public void onNext(List<ListDateReportResponse> listDateReportResponses) {
-
+                        Log.d("nnn", "onNext: "+ a);
                         ArrayList<ListDateReportResponse> arrayList = (ArrayList<ListDateReportResponse>) listDateReportResponses;
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
                         try {
@@ -97,7 +97,7 @@ public class ListReportDateFragment extends DialogFragment{
                             sdf.setLenient(false);
                             Date today = new Date();
                             String s = sdf.format(today);
-                            if (a.compareTo(s)>=0){
+                            if (current.compareTo(today)>=0){
 //                                Toast.makeText(getActivity(), "Ngày này chưa tới!!", Toast.LENGTH_SHORT).show();
                                 textView.setText("Ngày này chưa tới!!");
                                 textView.setVisibility(View.VISIBLE);
