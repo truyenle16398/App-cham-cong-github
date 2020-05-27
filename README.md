@@ -9,7 +9,8 @@
 
 ## Mockup User Inteface Demo
 (This is UI of application drawed by Photoshop SC6)
-![mockup_transparent](https://user-images.githubusercontent.com/55780534/82993897-84300980-a02b-11ea-933f-7b0db68d8e40.png)
+![image_2020_02_20T10_05_03_254Z](https://user-images.githubusercontent.com/55780534/82994368-35cf3a80-a02c-11ea-9283-fc4f181a297c.png)
+
 
 ## Tech stack
 * <b>Architecture</b> - A collection of libraries that help you design robust, testable, and maintainable apps. Start with classes for managing your UI component lifecycle and handling data persistence.
